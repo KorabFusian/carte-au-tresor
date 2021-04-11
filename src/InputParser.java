@@ -28,7 +28,7 @@ public class InputParser {
             String prevLine = null;   // pour vérifier que la ligne C est la première (pas de previous line)
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
-                line = line.replaceAll("\\s", "");  // remove whitespace
+                line = line.replaceAll("\\s", ""); // enlever les espaces au cas ou ils poseraient pb
                 if(line.charAt(0) == 'C' && prevLine != null){
                     throw new WrongInputException("Creation de carte après la première ligne");
                 }
@@ -48,14 +48,16 @@ public class InputParser {
 
     public void parseLine (String line, CarteAuTresor carteInput) {
         //parse a line to create the action that needs to be done
-        //throw invalid line exception if not
-        switch (line.charAt(0)) {
-            case 'C' -> carteInput.createMap(line);
-            case 'M' -> carteInput.addMountain(line);
-            case 'T' -> carteInput.addTreasure(line);
-            case 'A' -> carteInput.addAventurier(line);
+        try {
+            switch (line.charAt(0)) {
+                case 'C' -> carteInput.createMap(line);
+                case 'M' -> carteInput.addMountain(line);
+                case 'T' -> carteInput.addTreasure(line);
+                case 'A' -> carteInput.addAventurier(line);
+            }
+        } catch (WrongInputException e) {
+            e.printStackTrace();
         }
-
     }
 
 

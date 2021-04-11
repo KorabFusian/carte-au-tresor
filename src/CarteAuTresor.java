@@ -5,14 +5,6 @@ public class CarteAuTresor {
     private List<List<String>> carte; // la carte elle-meme
     private List<Aventurier> aventuriers; // liste des aventuriers (pour ne pas se perdre)
 
-    public void create(int x, int y) {
-        carte = new ArrayList<>(y);
-        for (int i = 0; i < y; i++) {
-            List<String> line = new ArrayList<>(Collections.nCopies(x, "-"));
-            carte.add(line);
-        }
-    }
-
     public void add(String square, int x, int y) {
        carte.get(y).set(x, square);
     }
@@ -24,10 +16,15 @@ public class CarteAuTresor {
         }
     }
     public void createMap (String params) {
+        aventuriers = new ArrayList<>();
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
-        create(x,y);
+        carte = new ArrayList<>();
+        for (int i = 0; i < y; i++) {
+            List<String> line = new ArrayList<>(Collections.nCopies(x, "-"));
+            carte.add(line);
+        }
     }
 
     public void addMountain (String params){
@@ -41,11 +38,27 @@ public class CarteAuTresor {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
-        carte.get(y).set(x, "M");
+        carte.get(y).set(x, "T");
     }
 
-    public void addAventurier (String params) {
+    public void addAventurier (String params) throws WrongInputException {
         String[] split = params.split("-");
+        String nom = split[1];
+        int x = Integer.parseInt(split[2]);
+        int y = Integer.parseInt(split[3]);
+
+        //gestion de l'orientation
+        Direction orientation;
+        switch (split[4]) {
+            case "N" -> orientation = Direction.NORD;
+            case "E" -> orientation = Direction.EST;
+            case "S" -> orientation = Direction.SUD;
+            case "O" -> orientation = Direction.OUEST;
+            default -> throw new WrongInputException("Mauvaise orientation d'aventurier");
+        }
+        String chemin = split[5];
+        carte.get(y).set(x, "A");
+        aventuriers.add(new Aventurier(nom, x, y, orientation, chemin));
     }
 
 }

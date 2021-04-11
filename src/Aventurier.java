@@ -10,12 +10,13 @@ public class Aventurier {
     private String chemin;
     private int tresor;
 
-    public Aventurier(String nom, int x, int y, Direction orientation) {
+    public Aventurier(String nom, int x, int y, Direction orientation, String chemin) {
         this.nom = nom;
         this.x = x;
         this.y = y;
         this.orientation = orientation;
         this.tresor = 0;
+        this.chemin = chemin;
     }
 
     public String getNom() {
