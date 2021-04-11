@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class CarteAuTresor {
-    private final List<List<String>> carte; // la carte elle-meme
+    private List<List<String>> carte; // la carte elle-meme
 
-    public CarteAuTresor(int x, int y) {
+    public void create(int x, int y) {
         carte = new ArrayList<>(y);
         for (int i = 0; i < y; i++) {
             List<String> line = new ArrayList<>(Collections.nCopies(x, "-"));

@@ -3,8 +3,7 @@ public class Main {
     public static void main(String[] args) {
 
     	InputParser inputParser = new InputParser();
-    	inputParser.parseFile("exemple.txt");
-	    CarteAuTresor carte = new CarteAuTresor(3, 4);
+	    CarteAuTresor carte = inputParser.parseFile("exemple.txt");
 	    carte.add("M", 1, 0);
 	    carte.add("M", 2, 1);
 	    carte.add("T", 0, 3);
