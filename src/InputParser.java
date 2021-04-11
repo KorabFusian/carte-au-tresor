@@ -16,18 +16,23 @@ public class InputParser {
 
     private final CarteAuTresor carteInput = new CarteAuTresor();
 
+    /**
+     * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
+     * @param filename le nom du fichier d'entrée
+     * @return carteInput la carte avant tout mouvement d'aventurier
+     */
     public CarteAuTresor parseFile(String filename) {
         try {
             File txtInput = new File(filename);
             Scanner lineReader = new Scanner(txtInput);
-            String prevLine = null;                 // pour vérifier que la ligne C est la première (pas de previous line)
+            String prevLine = null;   // pour vérifier que la ligne C est la première (pas de previous line)
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
-                line = line.replaceAll("\\s", "");      // remove whitespace
+                line = line.replaceAll("\\s", "");  // remove whitespace
                 if(line.charAt(0) == 'C' && prevLine != null){
                     throw new WrongInputException("Creation de carte après la première ligne");
                 }
-                if (line.charAt(0) != '#') {                                // skip comments
+                if (line.charAt(0) != '#') {   // skip comments
                     parseLine(line, carteInput);
                     System.out.println(line);
                     prevLine = line;
@@ -45,25 +50,13 @@ public class InputParser {
         //parse a line to create the action that needs to be done
         //throw invalid line exception if not
         switch (line.charAt(0)) {
-            case 'C' -> createMap(line, carteInput);
-            case 'M' -> addMountain(line, carteInput);
-            case 'T' -> addTreasure(line, carteInput);
+            case 'C' -> carteInput.createMap(line);
+            case 'M' -> carteInput.addMountain(line);
+            case 'T' -> carteInput.addTreasure(line);
+            case 'A' -> carteInput.addAventurier(line);
         }
 
     }
 
-    private void createMap (String line, CarteAuTresor carteInput) {
-        String[] params = line.split("-");
-        int x = Integer.parseInt(params[1]);
-        int y = Integer.parseInt(params[2]);
-        carteInput.create(x,y);
-    }
 
-    private void addMountain (String line, CarteAuTresor carteInput){
-
-    }
-
-    private void addTreasure (String line, CarteAuTresor carteInput) {
-
-    }
 }
