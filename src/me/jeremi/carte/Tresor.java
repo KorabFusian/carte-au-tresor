@@ -10,22 +10,19 @@ public class Tresor {
         this.x = x;
         this.y = y;
     }
+    public void decrement() {
+            setTresor(getTresor() - 1);
+    }
+    //region Accessors
 
     public int getTresor() {
         return tresor;
     }
 
     public void setTresor(int tresor) {
-        this.tresor = tresor;
+        this.tresor = Math.max(tresor, 0);
     }
 
-    public void decrement() {
-        if (getTresor() > 0) {
-            setTresor(getTresor() - 1);
-        }
-    }
-
-    
     public int getY() {
         return y;
     }
@@ -35,4 +32,5 @@ public class Tresor {
         return x;
     }
 
+    //endregion
 }

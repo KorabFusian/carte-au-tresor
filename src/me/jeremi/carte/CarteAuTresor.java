@@ -6,6 +6,31 @@ public class CarteAuTresor {
 
     private List<List<String>> carte = null; // la carte elle-meme
     private List<Aventurier> aventuriers; // liste des aventuriers (pour ne pas se perdre)
+
+    public List<List<String>> getCarte() {
+        return carte;
+    }
+
+    public void setCarte(List<List<String>> carte) {
+        this.carte = carte;
+    }
+
+    public List<Aventurier> getAventuriers() {
+        return aventuriers;
+    }
+
+    public void setAventuriers(List<Aventurier> aventuriers) {
+        this.aventuriers = aventuriers;
+    }
+
+    public List<Tresor> getTresors() {
+        return tresors;
+    }
+
+    public void setTresors(List<Tresor> tresors) {
+        this.tresors = tresors;
+    }
+
     private List<Tresor> tresors; // liste des trésors (pour ne pas se perdre)
 
 
