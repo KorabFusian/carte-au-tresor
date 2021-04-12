@@ -19,9 +19,9 @@ public class CarteAuTresor {
         }
     }
 
-    public void createMap(String params) throws WrongInputException {
-        if (carte != null){
-            throw new WrongInputException("Creation de carte après la première ligne");
+    public void createMap(String params) throws WrongCarteInputException {
+        if (carte != null) {
+            throw new WrongCarteInputException("2 créations de cartes dans la même ligne");
         }
         aventuriers = new ArrayList<>();
         tresors = new ArrayList<>();
@@ -35,23 +35,32 @@ public class CarteAuTresor {
         }
     }
 
-    public void addMontagne(String params) {
+    public void addMontagne(String params) throws WrongCarteInputException {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
+        if (y > carte.size() || x > carte.get(0).size()) {
+            throw new WrongCarteInputException("Création de montagne hors des limites de la carte");
+        }
         carte.get(y).set(x, "M");
     }
 
-    public void addTresor(String params) {
+    public void addTresor(String params) throws WrongCarteInputException {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
+        if (y > carte.size() || x > carte.get(0).size()) {
+            throw new WrongCarteInputException("Création de trésor hors des limites de la carte");
+        }
         int tresor = Integer.parseInt(split[3]);
+        if (tresor < 1) {
+            throw new WrongCarteInputException("Trésor ne peut pas être 0 ou négatif");
+        }
         tresors.add(new Tresor(tresor, x, y));
         carte.get(y).set(x, "T (" + tresor + ")");
     }
 
-    public void addAventurier(String params) throws WrongInputException {
+    public void addAventurier(String params) throws WrongCarteInputException {
         String[] split = params.split("-");
         String nom = split[1];
         int x = Integer.parseInt(split[2]);
@@ -64,7 +73,7 @@ public class CarteAuTresor {
             case "E" -> orientation = Direction.EST;
             case "S" -> orientation = Direction.SUD;
             case "O" -> orientation = Direction.OUEST;
-            default -> throw new WrongInputException("Mauvaise orientation d'aventurier");
+            default -> throw new WrongCarteInputException("Mauvaise orientation d'aventurier");
         }
         String chemin = split[5];
         carte.get(y).set(x, "A (" + nom + ")" );
