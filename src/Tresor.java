@@ -7,8 +7,8 @@ public class Tresor {
     }
 
     private int tresor;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public int getTresor() {
         return tresor;
@@ -24,15 +24,9 @@ public class Tresor {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 }

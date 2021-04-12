@@ -69,13 +69,6 @@ public class CarteAuTresor {
         return null;
     }
 
-    private Aventurier getAventurierByPosition(int x, int y) {
-        for (Aventurier aventurier : aventuriers) {
-            if (aventurier.getX() == x && aventurier.getY() == y) return aventurier;
-        }
-        return null;
-    }
-
     public void mouvementAventuriers() {
         boolean atLeastOneMoveLeft = true;
         while (atLeastOneMoveLeft) {
@@ -171,7 +164,7 @@ public class CarteAuTresor {
         }
 
         // On finit par modifier les stats de l'aventurier
-        aventurier.setPos(targetX, targetY);
+        aventurier.advanceToPosition(targetX, targetY);
 
     }
 
