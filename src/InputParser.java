@@ -18,6 +18,7 @@ public class InputParser {
 
     /**
      * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
+     *
      * @param filename le nom du fichier d'entrée
      * @return carteInput la carte avant tout mouvement d'aventurier
      */
@@ -29,7 +30,7 @@ public class InputParser {
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
                 line = line.replaceAll("\\s", ""); // enlever les espaces au cas ou ils poseraient pb
-                if(line.charAt(0) == 'C' && prevLine != null){
+                if (line.charAt(0) == 'C' && prevLine != null) {
                     throw new WrongInputException("Creation de carte après la première ligne");
                 }
                 if (line.charAt(0) != '#') {   // skip comments
@@ -43,16 +44,15 @@ public class InputParser {
             System.out.println("Erreur durant la lecture du fichier d'entrée.");
             e.printStackTrace();
         }
-            return carteInput;
+        return carteInput;
     }
 
-    public void parseLine (String line, CarteAuTresor carteInput) {
-        //parse a line to create the action that needs to be done
+    public void parseLine(String line, CarteAuTresor carteInput) {
         try {
             switch (line.charAt(0)) {
                 case 'C' -> carteInput.createMap(line);
-                case 'M' -> carteInput.addMountain(line);
-                case 'T' -> carteInput.addTreasure(line);
+                case 'M' -> carteInput.addMontagne(line);
+                case 'T' -> carteInput.addTresor(line);
                 case 'A' -> carteInput.addAventurier(line);
             }
         } catch (WrongInputException e) {
