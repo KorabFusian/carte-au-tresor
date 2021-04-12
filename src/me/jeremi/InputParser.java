@@ -1,4 +1,4 @@
-/*
+package me.jeremi;/*
  * FileParser
  * Version 1.0 (2021-04-11)
  *
@@ -29,7 +29,7 @@ public class InputParser {
             String prevLine = null;   // pour vérifier que la ligne C est la première (pas de previous line)
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
-                line = line.replaceAll("\\s", ""); // enlever les espaces au cas ou ils poseraient pb
+                line = line.replaceAll("\\s", ""); // enlever les whitespace
                 if (line.charAt(0) == 'C' && prevLine != null) {
                     throw new WrongInputException("Creation de carte après la première ligne");
                 }

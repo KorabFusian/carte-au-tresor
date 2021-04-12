@@ -1,3 +1,5 @@
+package me.jeremi;
+
 public class Tresor {
 
     public Tresor(int tresor, int x, int y) {

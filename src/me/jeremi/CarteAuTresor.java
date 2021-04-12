@@ -1,3 +1,5 @@
+package me.jeremi;
+
 import java.util.*;
 
 public class CarteAuTresor {
@@ -10,6 +12,10 @@ public class CarteAuTresor {
     public void print() {
         for (List<String> list : carte) {
             System.out.println(Arrays.toString(list.toArray()));
+        }
+        for (Aventurier aventurier : aventuriers
+             ) {
+            System.out.println(aventurier.toString());
         }
     }
 
