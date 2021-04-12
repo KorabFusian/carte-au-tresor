@@ -33,6 +33,10 @@ class Tresor {
         return tresor;
     }
 
+    /**
+     * Set le nombre de trésors, toujours positif (0 si négatif)
+     * @param tresor le nouveau nombre de trésors
+     */
     public void setTresor(int tresor) {
         this.tresor = Math.max(tresor, 0);
     }
