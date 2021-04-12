@@ -35,7 +35,6 @@ public class InputParser {
                 }
                 if (line.charAt(0) != '#') {   // skip comments
                     parseLine(line, carteInput);
-                    System.out.println(line);
                     prevLine = line;
                 }
             }

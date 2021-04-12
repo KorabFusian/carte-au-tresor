@@ -76,4 +76,29 @@ public class CarteAuTresor {
         return null;
     }
 
+    private void mouvementAventuriers() {
+        boolean atLeastOneMoveLeft = true;
+        while (atLeastOneMoveLeft) {
+            atLeastOneMoveLeft = false;
+
+            // on effectue tous les tours
+            for (Aventurier aventurier : aventuriers) {
+                tour(aventurier);
+            }
+
+            // vérification qu'au moins 1 d'entre eux doit encore bouger
+            for (Aventurier aventurier : aventuriers) {
+                if (!aventurier.getCheminRestant().isEmpty()) {
+                    atLeastOneMoveLeft = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void tour(Aventurier aventurier) {
+        // on chope sa pos initiale, la target pos, orientation initiale, target orientation
+    }
+
+
 }
