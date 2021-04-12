@@ -7,7 +7,8 @@ public class Aventurier {
     private int x;
     private int y;
     private Direction orientation;
-    private String chemin;
+    private final String chemin; // le chemin original
+    private String cheminRestant; // le chemin qu'il reste à faire
     private int tresor;
 
     public Aventurier(String nom, int x, int y, Direction orientation, String chemin) {
@@ -17,6 +18,12 @@ public class Aventurier {
         this.orientation = orientation;
         this.tresor = 0;
         this.chemin = chemin;
+        this.cheminRestant = chemin;
+    }
+
+    public String popCheminRestant() {
+        cheminRestant = getCheminRestant().substring(1);
+        return cheminRestant;
     }
 
     public String getNom() {
@@ -57,5 +64,9 @@ public class Aventurier {
 
     public void incrementTresor() {
         this.tresor += 1;
+    }
+
+    public String getCheminRestant() {
+        return cheminRestant;
     }
 }

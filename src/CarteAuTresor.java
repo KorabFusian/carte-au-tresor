@@ -6,9 +6,6 @@ public class CarteAuTresor {
     private List<Aventurier> aventuriers; // liste des aventuriers (pour ne pas se perdre)
     private List<Tresor> tresors; // liste des trésors (pour ne pas se perdre)
 
-    public void add(String square, int x, int y) {
-        carte.get(y).set(x, square);
-    }
 
     public void print() {
         for (List<String> list : carte) {
