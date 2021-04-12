@@ -23,7 +23,7 @@ class AventurierTest {
     @Test
     @DisplayName("Chemin should remove wrong characters when set")
     void cheminShouldRemoveWhitespacesOnSet() {
-        aventurier .setCheminRestant("AB ffa iojK,AGA DA A");
+        aventurier.setCheminRestant("AB ffa iojK,AGA DA A");
         assertEquals("AAGADAA", aventurier.getCheminRestant(), "Wrong characters should be removed on chemin when setting");
     }
 

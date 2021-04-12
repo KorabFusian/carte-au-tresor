@@ -1,23 +1,27 @@
 package me.jeremi.carte;
 
 public class Tresor {
-
-    public Tresor(int tresor, int x, int y) {
-        this.tresor = tresor;
-        this.x = x;
-        this.y = y;
-    }
-
     private int tresor;
     private final int x;
     private final int y;
 
+    public Tresor(int tresor, int x, int y) {
+        this.tresor = Math.max(tresor, 0);
+        this.x = x;
+        this.y = y;
+    }
+
     public int getTresor() {
         return tresor;
     }
+
+    public void setTresor(int tresor) {
+        this.tresor = tresor;
+    }
+
     public void decrement() {
-        if (tresor > 0) {
-            tresor -= 1;
+        if (getTresor() > 0) {
+            setTresor(getTresor() - 1);
         }
     }
 
