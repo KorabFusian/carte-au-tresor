@@ -22,7 +22,7 @@ public class Aventurier {
     }
 
     public String popCheminRestant() {
-        cheminRestant = getCheminRestant().substring(1);
+        cheminRestant =  getCheminRestant().substring(1);
         return cheminRestant;
     }
 
@@ -68,5 +68,33 @@ public class Aventurier {
 
     public String getCheminRestant() {
         return cheminRestant;
+    }
+
+    public void tournerAGauche() {
+        switch (orientation) {
+            case NORD -> orientation = Direction.OUEST;
+            case SUD -> orientation = Direction.EST;
+            case EST -> orientation = Direction.NORD;
+            case OUEST -> orientation = Direction.SUD;
+            default -> throw new IllegalStateException("Unexpected value: " + orientation);
+        }
+        popCheminRestant();
+    }
+
+    public void tournerADroite() {
+        switch (orientation) {
+            case NORD -> orientation = Direction.EST;
+            case SUD -> orientation = Direction.OUEST;
+            case EST -> orientation = Direction.SUD;
+            case OUEST -> orientation = Direction.NORD;
+            default -> throw new IllegalStateException("Unexpected value: " + orientation);
+        }
+        popCheminRestant();
+    }
+
+    public void setPos(int x, int y) {
+        this.x = x;
+        this.y = y;
+        popCheminRestant();
     }
 }

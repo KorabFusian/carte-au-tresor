@@ -4,6 +4,7 @@ public class Main {
 
     	InputParser inputParser = new InputParser();
 	    CarteAuTresor carte = inputParser.parseFile("exemple.txt");
+	    carte.mouvementAventuriers();
 	    carte.print();
     }
 }
