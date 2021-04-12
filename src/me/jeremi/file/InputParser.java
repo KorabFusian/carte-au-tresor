@@ -17,7 +17,15 @@ import java.util.Scanner;
 
 public class InputParser {
 
-    private final CarteAuTresor carteInput = new CarteAuTresor();
+    public CarteAuTresor getCarteInput() {
+        return carteInput;
+    }
+
+    private final CarteAuTresor carteInput;
+
+    public InputParser() {
+        carteInput = new CarteAuTresor();
+    }
 
     /**
      * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
@@ -29,24 +37,19 @@ public class InputParser {
         try {
             File txtInput = new File(filename);
             Scanner lineReader = new Scanner(txtInput);
-            String prevLine = null;   // pour vérifier que la ligne C est la première (pas de previous line)
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
                 line = line.replaceAll("\\s", ""); // enlever les whitespace
-                if (line.charAt(0) == 'C' && prevLine != null) {
-                    throw new WrongInputException("Creation de carte après la première ligne");
-                }
                 if (line.charAt(0) != '#') {   // skip comments
-                    parseLine(line, carteInput);
-                    prevLine = line;
+                    parseLine(line, getCarteInput());
                 }
             }
             lineReader.close();
-        } catch (FileNotFoundException | WrongInputException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Erreur durant la lecture du fichier d'entrée.");
             e.printStackTrace();
         }
-        return carteInput;
+        return getCarteInput();
     }
 
     public void parseLine(String line, CarteAuTresor carteInput) {

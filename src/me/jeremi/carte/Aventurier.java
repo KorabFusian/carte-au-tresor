@@ -1,5 +1,7 @@
 package me.jeremi.carte;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * Représente un aventurier présent sur la carte.
  * @version %I%

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CarteAuTresor {
 
-    private List<List<String>> carte; // la carte elle-meme
+    private List<List<String>> carte = null; // la carte elle-meme
     private List<Aventurier> aventuriers; // liste des aventuriers (pour ne pas se perdre)
     private List<Tresor> tresors; // liste des trésors (pour ne pas se perdre)
 
@@ -19,7 +19,10 @@ public class CarteAuTresor {
         }
     }
 
-    public void createMap(String params) {
+    public void createMap(String params) throws WrongInputException {
+        if (carte != null){
+            throw new WrongInputException("Creation de carte après la première ligne");
+        }
         aventuriers = new ArrayList<>();
         tresors = new ArrayList<>();
         String[] split = params.split("-");
