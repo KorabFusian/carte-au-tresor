@@ -7,56 +7,33 @@ public class CarteAuTresor {
     private List<List<String>> carte = null; // la carte elle-meme
     private List<Aventurier> aventuriers; // liste des aventuriers (pour ne pas se perdre)
 
-    public List<List<String>> getCarte() {
-        return carte;
-    }
-
-    public void setCarte(List<List<String>> carte) {
-        this.carte = carte;
-    }
-
-    public List<Aventurier> getAventuriers() {
-        return aventuriers;
-    }
-
-    public void setAventuriers(List<Aventurier> aventuriers) {
-        this.aventuriers = aventuriers;
-    }
-
-    public List<Tresor> getTresors() {
-        return tresors;
-    }
-
-    public void setTresors(List<Tresor> tresors) {
-        this.tresors = tresors;
-    }
 
     private List<Tresor> tresors; // liste des trésors (pour ne pas se perdre)
 
 
     public void print() {
-        for (List<String> list : carte) {
+        for (List<String> list : getCarte()) {
             System.out.println(Arrays.toString(list.toArray()));
         }
-        for (Aventurier aventurier : aventuriers
+        for (Aventurier aventurier : getAventuriers()
              ) {
             System.out.println(aventurier.toString());
         }
     }
 
     public void createMap(String params) throws WrongCarteInputException {
-        if (carte != null) {
+        if (getCarte() != null) {
             throw new WrongCarteInputException("2 créations de cartes dans la même ligne");
         }
-        aventuriers = new ArrayList<>();
-        tresors = new ArrayList<>();
+        setAventuriers(new ArrayList<>());
+        setTresors(new ArrayList<>());
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
-        carte = new ArrayList<>();
+        setCarte(new ArrayList<>());
         for (int i = 0; i < y; i++) {
             List<String> line = new ArrayList<>(Collections.nCopies(x, "-"));
-            carte.add(line);
+            getCarte().add(line);
         }
     }
 
@@ -64,25 +41,25 @@ public class CarteAuTresor {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
-        if (y > carte.size() || x > carte.get(0).size()) {
+        if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new WrongCarteInputException("Création de montagne hors des limites de la carte");
         }
-        carte.get(y).set(x, "M");
+        getCarte().get(y).set(x, "M");
     }
 
     public void addTresor(String params) throws WrongCarteInputException {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
-        if (y > carte.size() || x > carte.get(0).size()) {
+        if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new WrongCarteInputException("Création de trésor hors des limites de la carte");
         }
         int tresor = Integer.parseInt(split[3]);
         if (tresor < 1) {
             throw new WrongCarteInputException("Trésor ne peut pas être 0 ou négatif");
         }
-        tresors.add(new Tresor(tresor, x, y));
-        carte.get(y).set(x, "T (" + tresor + ")");
+        getTresors().add(new Tresor(tresor, x, y));
+        getCarte().get(y).set(x, "T (" + tresor + ")");
     }
 
     public void addAventurier(String params) throws WrongCarteInputException {
@@ -101,12 +78,12 @@ public class CarteAuTresor {
             default -> throw new WrongCarteInputException("Mauvaise orientation d'aventurier");
         }
         String chemin = split[5];
-        carte.get(y).set(x, "A (" + nom + ")" );
-        aventuriers.add(new Aventurier(nom, x, y, orientation, chemin));
+        getCarte().get(y).set(x, "A (" + nom + ")" );
+        getAventuriers().add(new Aventurier(nom, x, y, orientation, chemin));
     }
 
     private Tresor getTresorByPosition(int x, int y) {
-        for (Tresor tresor : tresors) {
+        for (Tresor tresor : getTresors()) {
             if (tresor.getX() == x && tresor.getY() == y) return tresor;
         }
         return null;
@@ -118,7 +95,7 @@ public class CarteAuTresor {
             atLeastOneMoveLeft = false;
 
             // on effectue 1 tour pour chaque aventurier
-            for (Aventurier aventurier : aventuriers) {
+            for (Aventurier aventurier : getAventuriers()) {
                 try {
                     tour(aventurier);
                 } catch (InvalidMoveException e) {
@@ -128,7 +105,7 @@ public class CarteAuTresor {
             }
 
             // vérification qu'au moins 1 d'entre eux doit encore bouger
-            for (Aventurier aventurier : aventuriers) {
+            for (Aventurier aventurier : getAventuriers()) {
                 if (!aventurier.getCheminRestant().isEmpty()) {
                     atLeastOneMoveLeft = true;
                     break;
@@ -185,8 +162,8 @@ public class CarteAuTresor {
             default -> throw new InvalidMoveException("Orientation invalide: " + aventurier.getOrientation());
         }
         // vérifier si obstacle devant
-        if (    carte.get(targetY).get(targetX).charAt(0) == 'A' ||
-                carte.get(targetY).get(targetX).equals("M")
+        if (    getCarte().get(targetY).get(targetX).charAt(0) == 'A' ||
+                getCarte().get(targetY).get(targetX).equals("M")
         ) {
             // si obstacle, on ne bouge pas
             targetX = initialX;
@@ -198,11 +175,11 @@ public class CarteAuTresor {
                tresor.decrement();
                aventurier.incrementTresor();
             }
-            carte.get(initialY).set(initialX, "-");
-            carte.get(targetY).set(targetX, "A (" + aventurier.getNom() + ")");
+            getCarte().get(initialY).set(initialX, "-");
+            getCarte().get(targetY).set(targetX, "A (" + aventurier.getNom() + ")");
             tresor = getTresorByPosition(initialX, initialY);
             if (tresor != null && tresor.getTresor() > 0) {
-                carte.get(initialY).set(initialX, "T (" + tresor.getTresor() + ")" );
+                getCarte().get(initialY).set(initialX, "T (" + tresor.getTresor() + ")" );
             }
         }
 
@@ -211,5 +188,30 @@ public class CarteAuTresor {
 
     }
 
+    //region Accessors
+    public List<List<String>> getCarte() {
+        return carte;
+    }
+
+    public void setCarte(List<List<String>> carte) {
+        this.carte = carte;
+    }
+
+    public List<Aventurier> getAventuriers() {
+        return aventuriers;
+    }
+
+    public void setAventuriers(List<Aventurier> aventuriers) {
+        this.aventuriers = aventuriers;
+    }
+
+    public List<Tresor> getTresors() {
+        return tresors;
+    }
+
+    public void setTresors(List<Tresor> tresors) {
+        this.tresors = tresors;
+    }
+    //endregion
 
 }
