@@ -1,6 +1,10 @@
 package me.jeremi.carte;
 
-public class InvalidMoveException extends Exception {
+/**
+ * Exception spécifique à un mouvement d'aventurier invalide.
+ * @author Jeremi Friggit(@KorabFusian)
+ */
+class InvalidMoveException extends Exception {
     public InvalidMoveException(String errorMessage) {
         super(errorMessage);
     }

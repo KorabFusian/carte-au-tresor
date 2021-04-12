@@ -4,15 +4,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Représente un aventurier présent sur la carte.
- * @version %I%
- * @since 1.0
+ * @author Jeremi Friggit(@KorabFusian)
  */
-public class Aventurier {
+class Aventurier {
 
     private final String nom;
     private int x;
     private int y;
     private Direction orientation;
+    /**
+     * Représente le chemin restant, pas le chemin original (qui n'est pas stocké)
+     */
     private String cheminRestant;
     private int tresor;
 

@@ -1,5 +1,5 @@
 package me.jeremi.carte;
 
-public enum Direction {
+enum Direction {
     NORD, SUD, EST, OUEST
 }
