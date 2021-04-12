@@ -31,7 +31,7 @@ public class Aventurier {
         this.y = y;
         this.orientation = orientation;
         this.tresor = 0;
-        this.cheminRestant = chemin;
+        this.cheminRestant = chemin.replaceAll("[^ADG]", ""); // security wrong characters removal
     }
 
     /**
@@ -39,7 +39,9 @@ public class Aventurier {
      * Si le chemin restant est vide, il devient un empty string ""
      */
     public void popCheminRestant() {
-        setCheminRestant(getCheminRestant().substring(1));
+        if(!getCheminRestant().isEmpty()) {
+            setCheminRestant(getCheminRestant().substring(1));
+        }
     }
 
     /**
@@ -167,7 +169,7 @@ public class Aventurier {
     }
 
     public void setCheminRestant(String cheminRestant) {
-        this.cheminRestant = cheminRestant;
+        this.cheminRestant = cheminRestant.replaceAll("[^ADG]", "");
     }
 
     public void setTresor(int tresor) {
