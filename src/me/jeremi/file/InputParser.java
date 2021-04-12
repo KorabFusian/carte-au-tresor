@@ -1,4 +1,4 @@
-package me.jeremi;/*
+package me.jeremi.file;/*
  * FileParser
  * Version 1.0 (2021-04-11)
  *
@@ -7,6 +7,9 @@ package me.jeremi;/*
  *
  * Created by Jeremi Friggit (KorabFusian)
  */
+
+import me.jeremi.carte.CarteAuTresor;
+import me.jeremi.carte.WrongInputException;
 
 import java.io.File;
 import java.io.FileNotFoundException;

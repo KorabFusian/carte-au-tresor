@@ -1,4 +1,4 @@
-package me.jeremi;
+package me.jeremi.carte;
 
 /**
  * Représente un aventurier présent sur la carte.
@@ -19,7 +19,7 @@ public class Aventurier {
      * @param nom le nom de l'aventurier
      * @param x sa position sur l'axe horizontal
      * @param y sa position sur l'axe vertical
-     * @param orientation son orientation (de l'enum me.jeremi.Direction, pas le caractère)
+     * @param orientation son orientation (de l'enum me.jeremi.carte.Direction, pas le caractère)
      * @param chemin la chaîne de caractères qui correspond au chemin à parcourir
      * @see Direction
      */
@@ -118,7 +118,7 @@ public class Aventurier {
      * Renvoie la chaîne de caractères correspondant à cet aventurier,
      * formatée pour le fichier de sortie.
      * Le format en question :
-     * {A comme me.jeremi.Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe
+     * {A comme me.jeremi.carte.Aventurier} - {Nom de l’aventurier} - {Axe horizontal} - {Axe
      *  vertical} - {Orientation} - {Nb. trésors ramassés}
      * @return la String créée
      */

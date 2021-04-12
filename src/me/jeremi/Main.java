@@ -1,5 +1,8 @@
 package me.jeremi;
 
+import me.jeremi.carte.CarteAuTresor;
+import me.jeremi.file.InputParser;
+
 public class Main {
 
     public static void main(String[] args) {

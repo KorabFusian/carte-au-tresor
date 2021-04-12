@@ -1,4 +1,4 @@
-package me.jeremi;
+package me.jeremi.carte;
 
 public enum Direction {
     NORD, SUD, EST, OUEST

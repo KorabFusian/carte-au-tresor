@@ -1,4 +1,4 @@
-package me.jeremi;
+package me.jeremi.carte;
 
 public class Tresor {
 
