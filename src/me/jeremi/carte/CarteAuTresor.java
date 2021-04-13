@@ -28,11 +28,11 @@ public class CarteAuTresor {
     /**
      * Initialise une carte vide avec les bonnes dimensions
      * @param params la ligne C venant directement du fichier source (sans les espaces)
-     * @throws WrongCarteInputException exception si on a déjà créé la carte
+     * @throws IllegalArgumentException exception si on a déjà créé la carte
      */
-    public void createMap(String params) throws WrongCarteInputException {
+    public void createMap(String params) throws IllegalArgumentException {
         if (getCarte() != null) {
-            throw new WrongCarteInputException("2 créations de cartes dans la même ligne");
+            throw new IllegalArgumentException("2 créations de cartes dans la même ligne");
         }
         setAventuriers(new ArrayList<>());
         setTresors(new ArrayList<>());
@@ -49,14 +49,17 @@ public class CarteAuTresor {
     /**
      * Ajoute une montagne à la carte
      * @param params la ligne M venant directement du fichier source (sans les espaces)
-     * @throws WrongCarteInputException exception si on sort des bords de la carte
+     * @throws IllegalArgumentException exception si on sort des bords de la carte ou que la case est déjà occupée
      */
-    public void addMontagne(String params) throws WrongCarteInputException {
+    public void addMontagne(String params) throws IllegalArgumentException {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
-            throw new WrongCarteInputException("Création de montagne hors des limites de la carte");
+            throw new IllegalArgumentException("Création de montagne hors des limites de la carte");
+        }
+        if (!getCarte().get(y).get(x).equals("-")) { // si on n'a pas une case vide (initiailisée à "-")
+            throw new IllegalArgumentException("Création de montagne sur une case déjà occupée");
         }
         getCarte().get(y).set(x, "M");
     }
@@ -64,19 +67,25 @@ public class CarteAuTresor {
     /**
      * Ajoute un trésor à la carte et crée un objet trésor dans la liste
      * @param params la ligne T venant directement du fichier source (sans les espaces)
-     * @throws WrongCarteInputException exception si on sort des bords de la carte ou que le trésor est vide/négatif
+     * @throws IllegalArgumentException exception si on sort des bords de la carte, que le trésor est vide/négatif
+     * ou que la case est déjà occupée
      */
-    public void addTresor(String params) throws WrongCarteInputException {
+    public void addTresor(String params) throws IllegalArgumentException {
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
-            throw new WrongCarteInputException("Création de trésor hors des limites de la carte");
+            throw new IllegalArgumentException("Création de trésor hors des limites de la carte");
         }
+        if (!getCarte().get(y).get(x).equals("-")) { // si on n'a pas une case vide (initiailisée à "-")
+            throw new IllegalArgumentException("Création de trésor sur une case déjà occupée");
+        }
+
         int tresor = Integer.parseInt(split[3]);
         if (tresor < 1) {
-            throw new WrongCarteInputException("Trésor ne peut pas être 0 ou négatif");
+            throw new IllegalArgumentException("Trésor ne peut pas être 0 ou négatif");
         }
+
         getTresors().add(new Tresor(tresor, x, y));
         getCarte().get(y).set(x, "T (" + tresor + ")");
     }
@@ -84,15 +93,18 @@ public class CarteAuTresor {
     /**
      * Ajoute un aventurier à la carte et crée un objet aventurier dans la liste
      * @param params la ligne A venant directement du fichier source (sans les espaces)
-     * @throws WrongCarteInputException si on sort des bords de la carte ou que l'orientation n'est pas bonne
+     * @throws IllegalArgumentException si on sort des bords de la carte ou que l'orientation n'est pas bonne
      */
-    public void addAventurier(String params) throws WrongCarteInputException {
+    public void addAventurier(String params) throws IllegalArgumentException {
         String[] split = params.split("-");
         String nom = split[1];
         int x = Integer.parseInt(split[2]);
         int y = Integer.parseInt(split[3]);
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
-            throw new WrongCarteInputException("Création d'aventurier hors des limites de la carte");
+            throw new IllegalArgumentException("Création d'aventurier hors des limites de la carte");
+        }
+        if (!getCarte().get(y).get(x).equals("-")) { // si on n'a pas une case vide (initiailisée à "-")
+            throw new IllegalArgumentException("Création d'aventurier sur une case déjà occupée");
         }
 
         // gestion de l'orientation
@@ -102,7 +114,7 @@ public class CarteAuTresor {
             case "E" -> orientation = Direction.EST;
             case "S" -> orientation = Direction.SUD;
             case "O" -> orientation = Direction.OUEST;
-            default -> throw new WrongCarteInputException("Mauvaise orientation d'aventurier");
+            default -> throw new IllegalArgumentException("Mauvaise orientation d'aventurier");
         }
         String chemin = split[5];
         getCarte().get(y).set(x, "A (" + nom + ")" );
@@ -123,7 +135,7 @@ public class CarteAuTresor {
             for (Aventurier aventurier : getAventuriers()) {
                 try {
                     tour(aventurier);
-                } catch (InvalidMoveException e) {
+                } catch (IllegalStateException e) {
                     System.out.println("Erreur durant le mouvement des aventuriers.");
                     e.printStackTrace();
                 }
@@ -142,9 +154,9 @@ public class CarteAuTresor {
     /**
      * Effectue le tour d'1 aventurier
      * @param aventurier l'aventurier à déplacer
-     * @throws InvalidMoveException exception si la commande ded mouvement est invalide (pas A/G/D)
+     * @throws IllegalStateException exception si la commande ded mouvement est invalide (pas A/G/D)
      */
-    private void tour(Aventurier aventurier) throws InvalidMoveException {
+    private void tour(Aventurier aventurier) throws IllegalStateException {
 
         // Si l'aventurier a fini de bouger on n'y touche plus
         if (aventurier.getCheminRestant().isEmpty()) {
@@ -159,7 +171,7 @@ public class CarteAuTresor {
 
             case 'A' -> avancerAventurier(aventurier);
 
-            default -> throw new InvalidMoveException("Commande de mouvement invalide: " + aventurier.getCheminRestant().charAt(0));
+            default -> throw new IllegalStateException("Commande de mouvement invalide: " + aventurier.getCheminRestant().charAt(0));
         }
 
     }
@@ -180,9 +192,9 @@ public class CarteAuTresor {
     /**
      * Fait avancer un aventurier dans la direction vers laquelle il est tourné.
      * @param aventurier l'aventurier à déplacer
-     * @throws InvalidMoveException exception si l'orientation n'est pas N,S,E,O
+     * @throws IllegalStateException exception si l'orientation n'est pas N,S,E,O
      */
-    private void avancerAventurier (Aventurier aventurier) throws InvalidMoveException {
+    private void avancerAventurier (Aventurier aventurier) throws IllegalStateException {
 
         int initialX = aventurier.getX();
         int initialY = aventurier.getY();
@@ -207,7 +219,7 @@ public class CarteAuTresor {
                 targetX = initialX - 1;
                 targetY = initialY;
             }
-            default -> throw new InvalidMoveException("Orientation invalide: " + aventurier.getOrientation());
+            default -> throw new IllegalStateException("Orientation invalide: " + aventurier.getOrientation());
         }
 
         // On reste dans les limites de la carte

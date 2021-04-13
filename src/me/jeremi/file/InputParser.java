@@ -9,7 +9,6 @@ package me.jeremi.file;/*
  */
 
 import me.jeremi.carte.CarteAuTresor;
-import me.jeremi.carte.WrongCarteInputException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,7 +59,7 @@ public class InputParser {
                 case 'T' -> carteInput.addTresor(line);
                 case 'A' -> carteInput.addAventurier(line);
             }
-        } catch (WrongCarteInputException e) {
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
     }
