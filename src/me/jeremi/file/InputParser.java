@@ -38,7 +38,10 @@ public class InputParser {
             Scanner lineReader = new Scanner(txtInput);
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
-                line = line.replaceAll("\\s", ""); // enlever les whitespace
+
+                // On retire les espaces blancs pour être sûr de récupérer le bon premier caractère
+                // et pour pouvoir parse chaque paramètre sans espace
+                line = line.replaceAll("\\s", "");
                 if (line.charAt(0) != '#') {   // skip comments
                     parseLine(line, getCarteInput());
                 }

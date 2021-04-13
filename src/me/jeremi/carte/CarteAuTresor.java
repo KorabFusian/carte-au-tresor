@@ -235,9 +235,9 @@ public class CarteAuTresor {
         }
 
         // On reste dans les limites de la carte
-        targetX = Math.min(targetX, getCarte().get(0).size());
+        targetX = Math.min(targetX, getCarte().get(0).size() - 1);
         targetX = Math.max(targetX, 0);
-        targetY = Math.min(targetY, getCarte().size());
+        targetY = Math.min(targetY, getCarte().size() - 1);
         targetY = Math.max(targetY, 0);
 
         // Vérifier si obstacle à l'arrivée (Montagne ou Aventurier)
