@@ -69,6 +69,17 @@ class AventurierTest {
     }
 
     @Test
+    @DisplayName("Incrementing tresor by 1 should work")
+    void incrementingTresor() {
+        aventurier.incrementTresor();
+        assertEquals(1, aventurier.getTresor(), "Tresor should be 1 after being incremented once");
+        for (int i = 0; i < 99; i++) {
+            aventurier.incrementTresor();
+        }
+        assertEquals(100, aventurier.getTresor(), "Tresor should be 100 after being incremented 100 times");
+    }
+
+    @Test
     @DisplayName("The orientation character should be returned right")
     void orientationCharShouldBeRight() {
         assertEquals('N', aventurier.getOrientationChar(), "Orientation char should be N when orienting NORD");
@@ -81,19 +92,10 @@ class AventurierTest {
     }
 
     @Test
-    @DisplayName("Incrementing tresor by 1 should work")
-    void incrementingTresor() {
-        aventurier.incrementTresor();
-        assertEquals(1, aventurier.getTresor(), "Tresor should be 1 after being incremented once");
-        for (int i = 0; i < 99; i++) {
-            aventurier.incrementTresor();
-        }
-        assertEquals(100, aventurier.getTresor(), "Tresor should be 100 after being incremented 100 times");
-    }
+    @DisplayName("Turning should bring you to the right direction")
+    void tournerShouldWork() {
 
-    @Test
-    @DisplayName("Turning left should bring you to the right direction")
-    void tournerAGaucheShouldWork() {
+        // Tourner à gauche
         aventurier.tournerAGauche();
         assertEquals(Direction.OUEST, aventurier.getOrientation(), "Orientation should be OUEST after turning left once");
         aventurier.tournerAGauche();
@@ -102,11 +104,8 @@ class AventurierTest {
         assertEquals(Direction.EST, aventurier.getOrientation(), "Orientation should be EST after turning left 3 times");
         aventurier.tournerAGauche();
         assertEquals(Direction.NORD, aventurier.getOrientation(), "Orientation should be NORD after turning left 4 times");
-    }
 
-    @Test
-    @DisplayName("Turning right should bring you to the right direction")
-    void tournerADroiteShouldWork() {
+        // Tourner à droite
         aventurier.tournerADroite();
         assertEquals(Direction.EST, aventurier.getOrientation(), "Orientation should be EST after turning right once");
         aventurier.tournerADroite();
@@ -115,6 +114,15 @@ class AventurierTest {
         assertEquals(Direction.OUEST, aventurier.getOrientation(), "Orientation should be EST after turning right 3 times");
         aventurier.tournerADroite();
         assertEquals(Direction.NORD, aventurier.getOrientation(), "Orientation should be NORD after turning right 4 times");
+    }
+
+    @Test
+    @DisplayName("Turning should set a new position")
+    void turningShouldSetPosition() {
+        aventurier.tournerAGauche();
+        assertEquals("AGADA", aventurier.getCheminRestant());
+        aventurier.tournerADroite();
+        assertEquals("GADA", aventurier.getCheminRestant());
     }
 
     @Test

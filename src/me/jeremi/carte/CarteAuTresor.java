@@ -154,9 +154,8 @@ public class CarteAuTresor {
     /**
      * Effectue le tour d'1 aventurier
      * @param aventurier l'aventurier à déplacer
-     * @throws IllegalStateException exception si la commande ded mouvement est invalide (pas A/G/D)
      */
-    private void tour(Aventurier aventurier) throws IllegalStateException {
+    private void tour(Aventurier aventurier) {
 
         // Si l'aventurier a fini de bouger on n'y touche plus
         if (aventurier.getCheminRestant().isEmpty()) {
@@ -170,9 +169,8 @@ public class CarteAuTresor {
             case 'D' -> aventurier.tournerADroite();
 
             case 'A' -> avancerAventurier(aventurier);
-
-            default -> throw new IllegalStateException("Commande de mouvement invalide: " + aventurier.getCheminRestant().charAt(0));
         }
+
 
     }
 
@@ -192,34 +190,20 @@ public class CarteAuTresor {
     /**
      * Fait avancer un aventurier dans la direction vers laquelle il est tourné.
      * @param aventurier l'aventurier à déplacer
-     * @throws IllegalStateException exception si l'orientation n'est pas N,S,E,O
      */
-    private void avancerAventurier (Aventurier aventurier) throws IllegalStateException {
+    private void avancerAventurier (Aventurier aventurier) {
 
         int initialX = aventurier.getX();
         int initialY = aventurier.getY();
-        int targetX;
-        int targetY;
+        int targetX = initialX;
+        int targetY = initialY;
 
         // on set la position cible en fct de l'orientation
         switch(aventurier.getOrientation()) {
-            case NORD -> {
-                targetX = initialX;
-                targetY = initialY - 1;
-            }
-            case SUD -> {
-                targetX = initialX;
-                targetY = initialY + 1;
-            }
-            case EST -> {
-                targetX = initialX + 1;
-                targetY = initialY;
-            }
-            case OUEST -> {
-                targetX = initialX - 1;
-                targetY = initialY;
-            }
-            default -> throw new IllegalStateException("Orientation invalide: " + aventurier.getOrientation());
+            case NORD -> targetY = initialY - 1;
+            case SUD -> targetY = initialY + 1;
+            case EST -> targetX = initialX + 1;
+            case OUEST -> targetX = initialX - 1;
         }
 
         // On reste dans les limites de la carte
@@ -242,7 +226,9 @@ public class CarteAuTresor {
                tresor.decrement();
                aventurier.incrementTresor();
             }
+            // Reset la position initiale
             getCarte().get(initialY).set(initialX, "-");
+            // Replacer l'aventurier
             getCarte().get(targetY).set(targetX, "A (" + aventurier.getNom() + ")");
             tresor = getTresorByPosition(initialX, initialY);
             if (tresor != null && tresor.getTresor() > 0) {
