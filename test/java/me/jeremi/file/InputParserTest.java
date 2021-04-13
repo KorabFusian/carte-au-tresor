@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -63,6 +64,16 @@ class InputParserTest {
                 "Tresor 2's toString should be right");
         assertEquals("A - Lara - 1 - 1 - S - 0", carte.getAventuriers().get(0).toString(),
                 "Aventurier's toString should be right");
+    }
+
+    @Test
+    @DisplayName("Parsing a file should add .txt to the pathname if it is not the case")
+    void parseFileShouldOpenWithTxt() {
+        CarteAuTresor carte = inputParser.parseFile(path + "exemple");
+
+        // Carte is created right
+        assertEquals(3, carte.getCarte().get(0).size(), "Carte X size should be 3");
+        assertEquals(4, carte.getCarte().size(), "Carte Y size should be 4");
     }
 
     @Test

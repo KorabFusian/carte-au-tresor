@@ -14,14 +14,16 @@ public class InputParser {
     /**
      * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
      *
-     * @param filename le nom du fichier d'entrée
+     * @param pathname le nom du fichier d'entrée
      * @return carteInput la carte avant tout mouvement d'aventurier
      */
-    public CarteAuTresor parseFile(String filename) {
+    public CarteAuTresor parseFile(String pathname) {
         // On crée une instance de carte qui aura tout ce qui est spécifié dans le fichier
         CarteAuTresor carteInput  = new CarteAuTresor();
+        // Toujours l'extension .txt
+        if (!pathname.endsWith(".txt")) pathname += ".txt";
         try {
-            File txtInput = new File(filename);
+            File txtInput = new File(pathname);
             Scanner lineReader = new Scanner(txtInput);
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
