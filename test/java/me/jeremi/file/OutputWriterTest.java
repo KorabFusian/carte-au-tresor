@@ -46,7 +46,7 @@ class OutputWriterTest {
                 M - 1 - 0
                 M - 2 - 1
                 T - 1 - 3 - 2
-                A - Lara - 0 - 3 - S - 3""",outputWriter.describeCarteAuTresor(carte));
+                A - Lara - 0 - 3 - S - 3""", outputWriter.describeCarteAuTresor(carte));
     }
 
     @Test

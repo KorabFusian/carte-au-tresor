@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe de test pour la classe CarteAuTresor.
+ * 
  * @author Jeremi Friggit (@KorabFusian)
  * @see CarteAuTresor
  */
@@ -15,14 +16,13 @@ class CarteAuTresorTest {
 
     CarteAuTresor carte;
 
-
     @BeforeEach
     void setUp() {
         carte = new CarteAuTresor();
         carte.createMap("C-3-4");
     }
 
-    //region Creation and filling Carte tests
+    // region Creation and filling Carte tests
     @Test
     @DisplayName("Creating two maps should throw an IllegalArgumentException")
     void createMapTwiceShouldThrowException() {
@@ -45,10 +45,10 @@ class CarteAuTresorTest {
         carte.addMontagne("M-2-1");
         assertEquals("M", carte.getCarte().get(1).get(2), "Carte should display an M at position (1,0)");
         assertEquals("M", carte.getCarte().get(0).get(1), "Carte should display an M at position (2,1)");
-        assertEquals(1,carte.getMontagnes().get(0).getX(), "The first mountain in the list should have x = 1");
-        assertEquals(0,carte.getMontagnes().get(0).getY(), "The first mountain in the list should have y = 0");
-        assertEquals(2,carte.getMontagnes().get(1).getX(), "The second mountain in the list should have x = 2");
-        assertEquals(1,carte.getMontagnes().get(1).getY(), "The second mountain in the list should have y = 1");
+        assertEquals(1, carte.getMontagnes().get(0).getX(), "The first mountain in the list should have x = 1");
+        assertEquals(0, carte.getMontagnes().get(0).getY(), "The first mountain in the list should have y = 0");
+        assertEquals(2, carte.getMontagnes().get(1).getX(), "The second mountain in the list should have x = 2");
+        assertEquals(1, carte.getMontagnes().get(1).getY(), "The second mountain in the list should have y = 1");
     }
 
     @Test
@@ -64,24 +64,18 @@ class CarteAuTresorTest {
         carte.addTresor("T-1-3-3");
 
         // Carte display
-        assertEquals("T (2)", carte.getCarte().get(3).get(0),
-                "Carte should display a T ({amount}) at position (0,3)");
-        assertEquals("T (3)", carte.getCarte().get(3).get(1),
-                "Carte should display a T ({amount}) at position (2,1)");
+        assertEquals("T (2)", carte.getCarte().get(3).get(0), "Carte should display a T ({amount}) at position (0,3)");
+        assertEquals("T (3)", carte.getCarte().get(3).get(1), "Carte should display a T ({amount}) at position (2,1)");
 
         // First Tresor should be added to list tresors
-        assertEquals(0,carte.getTresors().get(0).getX(),
-                "The first treasure in the list should have x = 1");
-        assertEquals(3,carte.getTresors().get(0).getY(),
-                "The first treasure in the list should have y = 0");
+        assertEquals(0, carte.getTresors().get(0).getX(), "The first treasure in the list should have x = 1");
+        assertEquals(3, carte.getTresors().get(0).getY(), "The first treasure in the list should have y = 0");
         assertEquals(2, carte.getTresors().get(0).getTresor(),
                 "The first treasure in the list should have 2 treasures");
 
         // Second Tresor should be added to list tresors
-        assertEquals(1,carte.getTresors().get(1).getX(),
-                "The second treasure in the list should have x = 2");
-        assertEquals(3,carte.getTresors().get(1).getY(),
-                "The second treasure in the list should have y = 1");
+        assertEquals(1, carte.getTresors().get(1).getX(), "The second treasure in the list should have x = 2");
+        assertEquals(3, carte.getTresors().get(1).getY(), "The second treasure in the list should have y = 1");
         assertEquals(3, carte.getTresors().get(1).getTresor(),
                 "The second treasure in the list should have 3 treasures");
     }
@@ -161,9 +155,9 @@ class CarteAuTresorTest {
         assertThrows(IllegalArgumentException.class, () -> carte.addMontagne("M-0-1"));
         assertThrows(IllegalArgumentException.class, () -> carte.addMontagne("M-0-2"));
     }
-    //endregion
+    // endregion
 
-    //region Movement tests
+    // region Movement tests
     @Test
     @DisplayName("Moving all Aventuriers should execute all turns correctly")
     void mouvementAventuriersShouldWork() {
@@ -173,8 +167,7 @@ class CarteAuTresorTest {
         carte.mouvementAventuriers();
 
         // Carte display
-        assertEquals("A (Lara)", carte.getCarte().get(0).get(1),
-                "Carte should display an A (Lara) at position (1,0)");
+        assertEquals("A (Lara)", carte.getCarte().get(0).get(1), "Carte should display an A (Lara) at position (1,0)");
         assertEquals("A (Keanu)", carte.getCarte().get(3).get(2),
                 "Carte should display an A (Keanu) at position (2,3)");
 
@@ -244,11 +237,11 @@ class CarteAuTresorTest {
         CarteAuTresor secondCarte = new CarteAuTresor();
         secondCarte.createMap("C-3-4");
         carte.mouvementAventuriers();
-        assertEquals(secondCarte.toString(),carte.toString());
+        assertEquals(secondCarte.toString(), carte.toString());
     }
-    //endregion
+    // endregion
 
-    //region Util tests
+    // region Util tests
     @Test
     @DisplayName("toString should return the correct result")
     void toStringShouldWork() {
@@ -270,9 +263,7 @@ class CarteAuTresorTest {
                 -        A (Lara) M       \s
                 -        -        -       \s
                 T (2)    T (3)    -       \s
-                """, carte.toString(),
-                "toString should update the space between each box when adding a long name");
-
+                """, carte.toString(), "toString should update the space between each box when adding a long name");
 
         carte.addAventurier("A-Indiana-1-2-S-AADADA");
 
@@ -281,18 +272,17 @@ class CarteAuTresorTest {
                 -           A (Lara)    M          \s
                 -           A (Indiana) -          \s
                 T (2)       T (3)       -          \s
-                """, carte.toString(),
-                "toString should update the space between each box when adding a long name");
+                """, carte.toString(), "toString should update the space between each box when adding a long name");
 
         carte.mouvementAventuriers();
 
         assertEquals("""
-               -           M           -          \s
-               A (Lara)    -           M          \s
-               A (Indiana) -           -          \s
-               T (1)       T (2)       -          \s
-               """, carte.toString(),
+                -           M           -          \s
+                A (Lara)    -           M          \s
+                A (Indiana) -           -          \s
+                T (1)       T (2)       -          \s
+                """, carte.toString(),
                 "toString should have the right elements in the right place after moving Aventuriers");
     }
-    //endregion
+    // endregion
 }

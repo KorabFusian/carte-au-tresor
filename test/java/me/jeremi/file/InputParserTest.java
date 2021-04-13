@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe de test pour la classe InputParser.
+ * 
  * @author Jeremi Friggit (@KorabFusian)
  * @see InputParser
  */
@@ -53,14 +54,10 @@ class InputParserTest {
         assertEquals(4, carte.getCarte().size(), "Carte Y size should be 4");
 
         // Objects are created right
-        assertEquals("M - 1 - 0", carte.getMontagnes().get(0).toString(),
-                "Montagne 1's toString should be right");
-        assertEquals("M - 2 - 1", carte.getMontagnes().get(1).toString(),
-                "Montagne 1's toString should be right");
-        assertEquals("T - 0 - 3 - 2", carte.getTresors().get(0).toString(),
-                "Tresor 1's toString should be right");
-        assertEquals("T - 1 - 3 - 3", carte.getTresors().get(1).toString(),
-                "Tresor 2's toString should be right");
+        assertEquals("M - 1 - 0", carte.getMontagnes().get(0).toString(), "Montagne 1's toString should be right");
+        assertEquals("M - 2 - 1", carte.getMontagnes().get(1).toString(), "Montagne 1's toString should be right");
+        assertEquals("T - 0 - 3 - 2", carte.getTresors().get(0).toString(), "Tresor 1's toString should be right");
+        assertEquals("T - 1 - 3 - 3", carte.getTresors().get(1).toString(), "Tresor 2's toString should be right");
         assertEquals("A - Lara - 1 - 1 - S - 0", carte.getAventuriers().get(0).toString(),
                 "Aventurier's toString should be right");
     }
@@ -85,14 +82,10 @@ class InputParserTest {
         assertEquals(4, carte.getCarte().size(), "Carte Y size should be 4");
 
         // Objects are created right
-        assertEquals("M - 1 - 0", carte.getMontagnes().get(0).toString(),
-                "Montagne 1's toString should be right");
-        assertEquals("M - 2 - 1", carte.getMontagnes().get(1).toString(),
-                "Montagne 1's toString should be right");
-        assertEquals("T - 0 - 3 - 2", carte.getTresors().get(0).toString(),
-                "Tresor 1's toString should be right");
-        assertEquals("T - 1 - 3 - 3", carte.getTresors().get(1).toString(),
-                "Tresor 2's toString should be right");
+        assertEquals("M - 1 - 0", carte.getMontagnes().get(0).toString(), "Montagne 1's toString should be right");
+        assertEquals("M - 2 - 1", carte.getMontagnes().get(1).toString(), "Montagne 1's toString should be right");
+        assertEquals("T - 0 - 3 - 2", carte.getTresors().get(0).toString(), "Tresor 1's toString should be right");
+        assertEquals("T - 1 - 3 - 3", carte.getTresors().get(1).toString(), "Tresor 2's toString should be right");
         assertEquals("A - Lara - 1 - 1 - S - 0", carte.getAventuriers().get(0).toString(),
                 "Aventurier's toString should be right");
     }

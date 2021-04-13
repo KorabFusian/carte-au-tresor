@@ -49,7 +49,7 @@ public class Main {
 
     static void consoleCarte(CarteAuTresor carte) {
         System.out.print("""
-                    
+
                 =====================================================================================
                                                    ETAT DE LA CARTE
                 =====================================================================================
@@ -62,7 +62,6 @@ public class Main {
                 Votre fichier est prêt, vous pouvez l'ouvrir !
                 -----------------------------------------------
                 """);
-
 
     }
 }

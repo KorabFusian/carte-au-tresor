@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe de test pour la classe Tresor.
+ * 
  * @author Jeremi Friggit (@KorabFusian)
  * @see Tresor
  */

@@ -3,10 +3,10 @@ package me.jeremi.carte;
 import java.util.*;
 
 /**
- * Gère la carte au trésor et ses règles.
- * Pour créer la carte elle-même, il faut appeler la méthode createMap avec la ligne du fichier d'input qui commence par C.
- * Un seul objet CarteAuTresor gère une seule carte : si on veut en créer plusieurs, il faut créer un
- * objet CarteAuTresor par carte à créer.
+ * Gère la carte au trésor et ses règles. Pour créer la carte elle-même, il faut
+ * appeler la méthode createMap avec la ligne du fichier d'input qui commence
+ * par C. Un seul objet CarteAuTresor gère une seule carte : si on veut en créer
+ * plusieurs, il faut créer un objet CarteAuTresor par carte à créer.
  *
  * @author Jeremi Friggit(@KorabFusian)
  * @see Montagne
@@ -20,11 +20,11 @@ public class CarteAuTresor {
     private List<Tresor> tresors = Collections.emptyList();
     private List<Aventurier> aventuriers = Collections.emptyList();
 
-
     /**
      * Initialise une carte vide avec les bonnes dimensions
      *
-     * @param params la ligne commençant par C venant directement du fichier source (sans les espaces)
+     * @param params la ligne commençant par C venant directement du fichier source
+     *               (sans les espaces)
      * @throws IllegalArgumentException exception si on a déjà créé la carte
      */
     public void createMap(String params) throws IllegalArgumentException {
@@ -57,10 +57,13 @@ public class CarteAuTresor {
     }
 
     /**
-     * Ajoute une montagne à la carte et crée l'objet Montagne correspondant dans la liste montagnes
+     * Ajoute une montagne à la carte et crée l'objet Montagne correspondant dans la
+     * liste montagnes
      *
-     * @param params la ligne commençant par M venant directement du fichier source (sans les espaces)
-     * @throws IllegalArgumentException exception si on ne peut pas mettre de montagne ici
+     * @param params la ligne commençant par M venant directement du fichier source
+     *               (sans les espaces)
+     * @throws IllegalArgumentException exception si on ne peut pas mettre de
+     *                                  montagne ici
      */
     public void addMontagne(String params) throws IllegalArgumentException {
         if (getCarte().isEmpty()) {
@@ -72,10 +75,9 @@ public class CarteAuTresor {
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new IllegalArgumentException("Création de montagne hors des limites de la carte");
         }
-        if (getMontagneByPosition(x, y) != null||
-                getTresorByPosition(x, y) != null ||
-                getAventurierByPosition(x, y) != null
-        ) { // si la case n'est pas vide (déjà une montagne, un trésor ou un aventurier)
+        if (getMontagneByPosition(x, y) != null || getTresorByPosition(x, y) != null
+                || getAventurierByPosition(x, y) != null) { // si la case n'est pas vide (déjà une montagne, un trésor
+                                                            // ou un aventurier)
             throw new IllegalArgumentException("Création de montagne sur une case déjà occupée");
         }
 
@@ -84,10 +86,13 @@ public class CarteAuTresor {
     }
 
     /**
-     * Ajoute un trésor à la carte et crée l'objet Tresor correspondant dans la liste tresors
+     * Ajoute un trésor à la carte et crée l'objet Tresor correspondant dans la
+     * liste tresors
      *
-     * @param params la ligne commençant par T venant directement du fichier source (sans les espaces)
-     * @throws IllegalArgumentException exception si on ne peut pas mettre de trésor ici ou qu'il est vide/négatif
+     * @param params la ligne commençant par T venant directement du fichier source
+     *               (sans les espaces)
+     * @throws IllegalArgumentException exception si on ne peut pas mettre de trésor
+     *                                  ici ou qu'il est vide/négatif
      */
     public void addTresor(String params) throws IllegalArgumentException {
         if (getCarte().isEmpty()) {
@@ -99,10 +104,9 @@ public class CarteAuTresor {
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new IllegalArgumentException("Création de trésor hors des limites de la carte");
         }
-        if (getMontagneByPosition(x, y) != null||
-                getTresorByPosition(x, y) != null ||
-                getAventurierByPosition(x, y) != null
-        ) { // si la case n'est pas vide (déjà une montagne, un trésor ou un aventurier)
+        if (getMontagneByPosition(x, y) != null || getTresorByPosition(x, y) != null
+                || getAventurierByPosition(x, y) != null) { // si la case n'est pas vide (déjà une montagne, un trésor
+                                                            // ou un aventurier)
             throw new IllegalArgumentException("Création de trésor sur une case déjà occupée");
         }
 
@@ -116,10 +120,13 @@ public class CarteAuTresor {
     }
 
     /**
-     * Ajoute un aventurier à la carte et crée l'objet Aventurier correspondant dans la liste aventuriers
+     * Ajoute un aventurier à la carte et crée l'objet Aventurier correspondant dans
+     * la liste aventuriers
      *
-     * @param params la ligne commençant par A venant directement du fichier source (sans les espaces)
-     * @throws IllegalArgumentException si on ne peut pas créer d'aventurier ou si l'orientation n'est pas bonne
+     * @param params la ligne commençant par A venant directement du fichier source
+     *               (sans les espaces)
+     * @throws IllegalArgumentException si on ne peut pas créer d'aventurier ou si
+     *                                  l'orientation n'est pas bonne
      */
     public void addAventurier(String params) throws IllegalArgumentException {
         if (getCarte().isEmpty()) {
@@ -132,35 +139,34 @@ public class CarteAuTresor {
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new IllegalArgumentException("Création d'aventurier hors des limites de la carte");
         }
-        if (getMontagneByPosition(x, y) != null||
-                getTresorByPosition(x, y) != null ||
-                getAventurierByPosition(x, y) != null
-        ) { // si la case n'est pas vide (déjà une montagne, un trésor ou un aventurier)
+        if (getMontagneByPosition(x, y) != null || getTresorByPosition(x, y) != null
+                || getAventurierByPosition(x, y) != null) { // si la case n'est pas vide (déjà une montagne, un trésor
+                                                            // ou un aventurier)
             throw new IllegalArgumentException("Création d'aventurier sur une case déjà occupée");
         }
 
         // gestion de l'orientation
         Direction orientation;
         switch (split[4]) {
-            case "N" -> orientation = Direction.NORD;
-            case "E" -> orientation = Direction.EST;
-            case "S" -> orientation = Direction.SUD;
-            case "O" -> orientation = Direction.OUEST;
-            default -> throw new IllegalArgumentException("Mauvaise orientation d'aventurier");
+        case "N" -> orientation = Direction.NORD;
+        case "E" -> orientation = Direction.EST;
+        case "S" -> orientation = Direction.SUD;
+        case "O" -> orientation = Direction.OUEST;
+        default -> throw new IllegalArgumentException("Mauvaise orientation d'aventurier");
         }
         String chemin = split[5];
         getCarte().get(y).set(x, "A (" + nom + ")");
         getAventuriers().add(new Aventurier(nom, x, y, orientation, chemin));
     }
 
-
     /**
-     * Effectue tous les mouvements d'aventuriers tour par tour.
-     * Tous les aventuriers effectuent 1 mouvement par tour.
+     * Effectue tous les mouvements d'aventuriers tour par tour. Tous les
+     * aventuriers effectuent 1 mouvement par tour.
      */
     public void mouvementAventuriers() {
         // Si pas d'aventuriers à faire bouger, on ne fait rien
-        if (getAventuriers().isEmpty()) return;
+        if (getAventuriers().isEmpty())
+            return;
 
         boolean atLeastOneMoveLeft;
         do {
@@ -193,19 +199,18 @@ public class CarteAuTresor {
             return;
         }
 
-
-        /* Le chemin restant des aventuriers contient UNIQUEMENT les caractères A/G/D
-            (voir le setter), donc pas besoin de gérer autre chose
+        /*
+         * Le chemin restant des aventuriers contient UNIQUEMENT les caractères A/G/D
+         * (voir le setter), donc pas besoin de gérer autre chose
          */
         switch (aventurier.getCheminRestant().charAt(0)) {
 
-            case 'G' -> aventurier.tournerAGauche();
+        case 'G' -> aventurier.tournerAGauche();
 
-            case 'D' -> aventurier.tournerADroite();
+        case 'D' -> aventurier.tournerADroite();
 
-            case 'A' -> avancerAventurier(aventurier);
+        case 'A' -> avancerAventurier(aventurier);
         }
-
 
     }
 
@@ -223,10 +228,10 @@ public class CarteAuTresor {
 
         // on set la position cible en fct de l'orientation
         switch (aventurier.getOrientation()) {
-            case NORD -> targetY = initialY - 1;
-            case SUD -> targetY = initialY + 1;
-            case EST -> targetX = initialX + 1;
-            case OUEST -> targetX = initialX - 1;
+        case NORD -> targetY = initialY - 1;
+        case SUD -> targetY = initialY + 1;
+        case EST -> targetX = initialX + 1;
+        case OUEST -> targetX = initialX - 1;
         }
 
         // On reste dans les limites de la carte
@@ -236,9 +241,7 @@ public class CarteAuTresor {
         targetY = Math.max(targetY, 0);
 
         // Vérifier si obstacle à l'arrivée (Montagne ou Aventurier)
-        if (getMontagneByPosition(targetX, targetY) != null||
-                getAventurierByPosition(targetX, targetY) != null
-        ) {
+        if (getMontagneByPosition(targetX, targetY) != null || getAventurierByPosition(targetX, targetY) != null) {
             // Si obstacle il y a, on ne bouge pas
             targetX = initialX;
             targetY = initialY;
@@ -273,7 +276,8 @@ public class CarteAuTresor {
      */
     private Tresor getTresorByPosition(int x, int y) {
         for (Tresor tresor : getTresors()) {
-            if (tresor.getX() == x && tresor.getY() == y) return tresor;
+            if (tresor.getX() == x && tresor.getY() == y)
+                return tresor;
         }
         return null;
     }
@@ -287,7 +291,8 @@ public class CarteAuTresor {
      */
     private Aventurier getAventurierByPosition(int x, int y) {
         for (Aventurier aventurier : getAventuriers()) {
-            if (aventurier.getX() == x && aventurier.getY() == y) return aventurier;
+            if (aventurier.getX() == x && aventurier.getY() == y)
+                return aventurier;
         }
         return null;
     }
@@ -302,15 +307,17 @@ public class CarteAuTresor {
     private Montagne getMontagneByPosition(int x, int y) {
 
         for (Montagne montagne : getMontagnes()) {
-            if (montagne.getX() == x && montagne.getY() == y) return montagne;
+            if (montagne.getX() == x && montagne.getY() == y)
+                return montagne;
         }
         return null;
     }
 
     /**
-     * Renvoie la taille des cases pour écriture par toString.
-     * Si aucun trésor ni aventurier, c'est la taille minimum (2 pour avoir un espace)
-     * Sinon c'est le nom/chiffre le plus long + 5
+     * Renvoie la taille des cases pour écriture par toString. Si aucun trésor ni
+     * aventurier, c'est la taille minimum (2 pour avoir un espace) Sinon c'est le
+     * nom/chiffre le plus long + 5
+     * 
      * @return la taille des cases
      */
     private int getCaseSize() {
@@ -330,11 +337,10 @@ public class CarteAuTresor {
                 longest = aventurier.getNom().length();
         }
 
-        // longest + 5 pour avoir la place pour  pour avoir la place d'écrire
+        // longest + 5 pour avoir la place pour pour avoir la place d'écrire
         // les caractères 'A/T', '(', ' ', ')', ' '
         return Math.max(longest + 5, 2);
     }
-
 
     @Override
     public String toString() {
@@ -349,7 +355,7 @@ public class CarteAuTresor {
         return str.toString();
     }
 
-    //region Accessors
+    // region Accessors
     public List<List<String>> getCarte() {
         return carte;
     }
@@ -381,6 +387,6 @@ public class CarteAuTresor {
     public void setMontagnes(List<Montagne> montagnes) {
         this.montagnes = montagnes;
     }
-    //endregion
+    // endregion
 
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * Permet d'écrire la description d'une carte dans un fichier texte.
+ * 
  * @author Jeremi Friggit (@KorabFusian)
  * @see CarteAuTresor
  */
@@ -15,11 +16,13 @@ public class OutputWriter {
 
     /**
      * Ecrit la description d'une carte dans un fichier.
-     * @param carte la CarteAuTresor à écrire
+     * 
+     * @param carte    la CarteAuTresor à écrire
      * @param pathname le chemin vers le fichier
      */
     public void writeCarteToFile(CarteAuTresor carte, String pathname) {
-        if (!pathname.endsWith(".txt")) pathname += ".txt";
+        if (!pathname.endsWith(".txt"))
+            pathname += ".txt";
         try {
             File outputTxt = new File(pathname);
             boolean created = outputTxt.createNewFile();
@@ -34,6 +37,7 @@ public class OutputWriter {
 
     /**
      * Génère la description d'une CarteAuTresor dans le bon format.
+     * 
      * @param carte la CarteAuTresor à décrire
      * @return la description de la carte en tant que String.
      */
@@ -47,7 +51,8 @@ public class OutputWriter {
 
         for (Tresor tresor : carte.getTresors()) {
             // On n'écrit plus les trésors vides
-            if(tresor.getTresor() > 0)  str.append("\n").append(tresor);
+            if (tresor.getTresor() > 0)
+                str.append("\n").append(tresor);
         }
 
         for (Aventurier aventurier : carte.getAventuriers()) {

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe de test pour la classe Aventurier.
+ * 
  * @author Jeremi Friggit (@KorabFusian)
  * @see Aventurier
  */
@@ -22,14 +23,16 @@ class AventurierTest {
     @DisplayName("Chemin should remove wrong characters when constructed")
     void cheminShouldRemoveWhitespacesOnConstruct() {
         aventurier = new Aventurier("Lara", 2, 3, Direction.NORD, "AB ffa iojK,AGA DA A");
-        assertEquals("AAGADAA", aventurier.getCheminRestant(), "Wrong characters should be removed on chemin when constructing");
+        assertEquals("AAGADAA", aventurier.getCheminRestant(),
+                "Wrong characters should be removed on chemin when constructing");
     }
 
     @Test
     @DisplayName("Chemin should remove wrong characters when set")
     void cheminShouldRemoveWhitespacesOnSet() {
         aventurier.setCheminRestant("AB ffa iojK,AGA DA A");
-        assertEquals("AAGADAA", aventurier.getCheminRestant(), "Wrong characters should be removed on chemin when setting");
+        assertEquals("AAGADAA", aventurier.getCheminRestant(),
+                "Wrong characters should be removed on chemin when setting");
     }
 
     @Test
@@ -37,7 +40,7 @@ class AventurierTest {
     void shouldPopCheminRestant() {
 
         aventurier.popCheminRestant();
-        assertEquals("AGADA",aventurier.getCheminRestant(),"The first character in cheminRestant should be removed");
+        assertEquals("AGADA", aventurier.getCheminRestant(), "The first character in cheminRestant should be removed");
     }
 
     @Test
@@ -45,7 +48,7 @@ class AventurierTest {
     void shouldPopCheminOneToEmpty() {
         aventurier.setCheminRestant("A");
         aventurier.popCheminRestant();
-        assertEquals("",aventurier.getCheminRestant(),"cheminRestant should be empty when popped at 1");
+        assertEquals("", aventurier.getCheminRestant(), "cheminRestant should be empty when popped at 1");
 
     }
 
@@ -54,7 +57,7 @@ class AventurierTest {
     void shouldPopCheminEmptyToEmpty() {
         aventurier.setCheminRestant("");
         aventurier.popCheminRestant();
-        assertEquals("",aventurier.getCheminRestant(),"cheminRestant should be empty when popped empty");
+        assertEquals("", aventurier.getCheminRestant(), "cheminRestant should be empty when popped empty");
 
     }
 
@@ -102,13 +105,16 @@ class AventurierTest {
 
         // Tourner à gauche
         aventurier.tournerAGauche();
-        assertEquals(Direction.OUEST, aventurier.getOrientation(), "Orientation should be OUEST after turning left once");
+        assertEquals(Direction.OUEST, aventurier.getOrientation(),
+                "Orientation should be OUEST after turning left once");
         aventurier.tournerAGauche();
         assertEquals(Direction.SUD, aventurier.getOrientation(), "Orientation should be SUD after turning left twice");
         aventurier.tournerAGauche();
-        assertEquals(Direction.EST, aventurier.getOrientation(), "Orientation should be EST after turning left 3 times");
+        assertEquals(Direction.EST, aventurier.getOrientation(),
+                "Orientation should be EST after turning left 3 times");
         aventurier.tournerAGauche();
-        assertEquals(Direction.NORD, aventurier.getOrientation(), "Orientation should be NORD after turning left 4 times");
+        assertEquals(Direction.NORD, aventurier.getOrientation(),
+                "Orientation should be NORD after turning left 4 times");
 
         // Tourner à droite
         aventurier.tournerADroite();
@@ -116,9 +122,11 @@ class AventurierTest {
         aventurier.tournerADroite();
         assertEquals(Direction.SUD, aventurier.getOrientation(), "Orientation should be SUD after turning right twice");
         aventurier.tournerADroite();
-        assertEquals(Direction.OUEST, aventurier.getOrientation(), "Orientation should be EST after turning right 3 times");
+        assertEquals(Direction.OUEST, aventurier.getOrientation(),
+                "Orientation should be EST after turning right 3 times");
         aventurier.tournerADroite();
-        assertEquals(Direction.NORD, aventurier.getOrientation(), "Orientation should be NORD after turning right 4 times");
+        assertEquals(Direction.NORD, aventurier.getOrientation(),
+                "Orientation should be NORD after turning right 4 times");
     }
 
     @Test
@@ -134,6 +142,7 @@ class AventurierTest {
     @DisplayName("toString should return the right string format")
     void testToString() {
         aventurier = new Aventurier("Lara", 2, 3, Direction.NORD, "AAGADA");
-        assertEquals("A - Lara - 2 - 3 - N - 0", aventurier.toString(), "The string should be \"A - Lara - 2 - 3 - N - 0\"");
+        assertEquals("A - Lara - 2 - 3 - N - 0", aventurier.toString(),
+                "The string should be \"A - Lara - 2 - 3 - N - 0\"");
     }
 }
