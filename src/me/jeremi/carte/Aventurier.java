@@ -107,6 +107,7 @@ public class Aventurier {
         case EST -> setOrientation(Direction.NORD);
         case OUEST -> setOrientation(Direction.SUD);
         }
+        // On enlève le mouvement actuel du chemin restant
         popCheminRestant();
     }
 
@@ -121,6 +122,8 @@ public class Aventurier {
         case EST -> setOrientation(Direction.SUD);
         case OUEST -> setOrientation(Direction.NORD);
         }
+
+        // On enlève le mouvement actuel du chemin restant
         popCheminRestant();
     }
 
@@ -172,6 +175,7 @@ public class Aventurier {
     }
 
     public void setCheminRestant(String cheminRestant) {
+        // On formate pour garder uniquement les commandes A, D, ou G
         this.cheminRestant = cheminRestant.replaceAll("[^ADG]", "");
     }
 

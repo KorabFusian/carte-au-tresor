@@ -32,22 +32,26 @@ public class InputParser {
             while (lineReader.hasNextLine()) {
                 String line = lineReader.nextLine();
 
-                // On retire les espaces blancs pour être sûr de récupérer le bon premier
-                // caractère
-                // et pour pouvoir parse chaque paramètre sans espace
+                /* On retire les espaces blancs pour être sûr de récupérer le bon premier
+                 caractère et pour pouvoir parse chaque paramètre sans espace */
                 line = line.replaceAll("\\s", "");
                 if (line.charAt(0) != '#') { // skip comments
                     parseLine(line, carteInput);
                 }
             }
             lineReader.close();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) { // Pas de fichier ¯\_(ツ)_/¯
             System.out.println("Fichier d'entrée introuvable.");
             e.printStackTrace();
         }
         return carteInput;
     }
 
+    /**
+     * Effectue la commande de création correspondant à chaque ligne du fichier.
+     * @param line la ligne à interpréter
+     * @param carteInput la carte où créer des données
+     */
     void parseLine(String line, CarteAuTresor carteInput) {
         try {
             switch (line.charAt(0)) {
@@ -56,7 +60,7 @@ public class InputParser {
             case 'T' -> carteInput.addTresor(line);
             case 'A' -> carteInput.addAventurier(line);
             }
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) { // Si on a autre chose
             e.printStackTrace();
         }
     }

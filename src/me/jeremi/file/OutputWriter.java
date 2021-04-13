@@ -21,12 +21,15 @@ public class OutputWriter {
      * @param pathname le chemin vers le fichier
      */
     public void writeCarteToFile(CarteAuTresor carte, String pathname) {
+        // Si pas d'extension, on la rajoute
         if (!pathname.endsWith(".txt"))
             pathname += ".txt";
+
         try {
             File outputTxt = new File(pathname);
             boolean created = outputTxt.createNewFile();
             FileWriter writer = new FileWriter(pathname);
+            // On écrit la description dans le fichier
             writer.write(describeCarteAuTresor(carte));
             writer.close();
         } catch (IOException e) {
@@ -45,16 +48,19 @@ public class OutputWriter {
         StringBuilder str = new StringBuilder(
                 "C - " + carte.getCarte().get(0).size() + " - " + carte.getCarte().size());
 
+        // Ecrire chaque montagne
         for (Montagne montagne : carte.getMontagnes()) {
             str.append("\n").append(montagne.toString());
         }
 
+        // Ecrire chaque trésor
         for (Tresor tresor : carte.getTresors()) {
             // On n'écrit plus les trésors vides
             if (tresor.getTresor() > 0)
                 str.append("\n").append(tresor);
         }
 
+        // Ecrire chaque aventurier
         for (Aventurier aventurier : carte.getAventuriers()) {
             str.append("\n").append(aventurier.toString());
         }

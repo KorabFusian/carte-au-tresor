@@ -20,6 +20,7 @@ public class CarteAuTresor {
     private List<Tresor> tresors = Collections.emptyList();
     private List<Aventurier> aventuriers = Collections.emptyList();
 
+    //region Création de carte
     /**
      * Initialise une carte vide avec les bonnes dimensions
      *
@@ -47,9 +48,10 @@ public class CarteAuTresor {
         if (x < 1 || y < 1) {
             throw new IllegalArgumentException("2 créations de cartes dans la même ligne");
         }
+
         setCarte(new ArrayList<>());
 
-        // On remplit la carte d'éléments vides
+        // On remplit la carte de X par Y éléments vides
         for (int i = 0; i < y; i++) {
             List<String> line = new ArrayList<>(Collections.nCopies(x, "-"));
             getCarte().add(line);
@@ -66,18 +68,23 @@ public class CarteAuTresor {
      *                                  montagne ici
      */
     public void addMontagne(String params) throws IllegalArgumentException {
+        // Si pas de carte, on throw une exception
         if (getCarte().isEmpty()) {
             throw new IllegalArgumentException("Pas de carte dans laquelle créer une montagne");
         }
+
+        // Récupérer la position
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
+
+        //Si on est hors des limites de la carte, on throw une exception
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new IllegalArgumentException("Création de montagne hors des limites de la carte");
         }
+        // Si la case n'est pas vide (déjà une montagne, un trésor ou un aventurier) on throw une exception
         if (getMontagneByPosition(x, y) != null || getTresorByPosition(x, y) != null
-                || getAventurierByPosition(x, y) != null) { // si la case n'est pas vide (déjà une montagne, un trésor
-                                                            // ou un aventurier)
+                || getAventurierByPosition(x, y) != null) {
             throw new IllegalArgumentException("Création de montagne sur une case déjà occupée");
         }
 
@@ -95,22 +102,28 @@ public class CarteAuTresor {
      *                                  ici ou qu'il est vide/négatif
      */
     public void addTresor(String params) throws IllegalArgumentException {
+        // Pas de carte, exception
         if (getCarte().isEmpty()) {
             throw new IllegalArgumentException("Pas de carte dans laquelle créer un trésor");
         }
+        // On récupère la position
         String[] split = params.split("-");
         int x = Integer.parseInt(split[1]);
         int y = Integer.parseInt(split[2]);
+        // Si hors des limites, exception
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new IllegalArgumentException("Création de trésor hors des limites de la carte");
         }
+
+        // Si la case n'est pas vide (déjà une montagne, un trésor ou un aventurier), exception
         if (getMontagneByPosition(x, y) != null || getTresorByPosition(x, y) != null
-                || getAventurierByPosition(x, y) != null) { // si la case n'est pas vide (déjà une montagne, un trésor
-                                                            // ou un aventurier)
+                || getAventurierByPosition(x, y) != null) {
             throw new IllegalArgumentException("Création de trésor sur une case déjà occupée");
         }
 
+        // Récupérer le nombre de trésors sur la case
         int tresor = Integer.parseInt(split[3]);
+        // tresor doit toujours être strictement positif
         if (tresor < 1) {
             throw new IllegalArgumentException("Trésor ne peut pas être 0 ou négatif");
         }
@@ -129,23 +142,28 @@ public class CarteAuTresor {
      *                                  l'orientation n'est pas bonne
      */
     public void addAventurier(String params) throws IllegalArgumentException {
+        // Si pas de carte, exception
         if (getCarte().isEmpty()) {
             throw new IllegalArgumentException("Pas de carte dans laquelle créer un aventurier");
         }
+
+        // On récupère la position
         String[] split = params.split("-");
         String nom = split[1];
         int x = Integer.parseInt(split[2]);
         int y = Integer.parseInt(split[3]);
+
+        //Si hors des limites, exception
         if (y > getCarte().size() || x > getCarte().get(0).size()) {
             throw new IllegalArgumentException("Création d'aventurier hors des limites de la carte");
         }
+        // Si la case n'est pas vide (déjà une montagne, un trésor ou un aventurier), exception
         if (getMontagneByPosition(x, y) != null || getTresorByPosition(x, y) != null
-                || getAventurierByPosition(x, y) != null) { // si la case n'est pas vide (déjà une montagne, un trésor
-                                                            // ou un aventurier)
+                || getAventurierByPosition(x, y) != null) {
             throw new IllegalArgumentException("Création d'aventurier sur une case déjà occupée");
         }
 
-        // gestion de l'orientation
+        // Gestion de l'orientation
         Direction orientation;
         switch (split[4]) {
         case "N" -> orientation = Direction.NORD;
@@ -154,11 +172,15 @@ public class CarteAuTresor {
         case "O" -> orientation = Direction.OUEST;
         default -> throw new IllegalArgumentException("Mauvaise orientation d'aventurier");
         }
+        // On récupère le chemin à faire
         String chemin = split[5];
+
         getCarte().get(y).set(x, "A (" + nom + ")");
         getAventuriers().add(new Aventurier(nom, x, y, orientation, chemin));
     }
+    //endregion
 
+    //region Mouvement
     /**
      * Effectue tous les mouvements d'aventuriers tour par tour. Tous les
      * aventuriers effectuent 1 mouvement par tour.
@@ -172,12 +194,12 @@ public class CarteAuTresor {
         do {
             atLeastOneMoveLeft = false;
 
-            // on effectue 1 tour pour chaque aventurier
+            // On effectue 1 tour pour chaque aventurier
             for (Aventurier aventurier : getAventuriers()) {
                 tour(aventurier);
             }
 
-            // vérification qu'au moins 1 d'entre eux doit encore bouger
+            // Vérification qu'au moins 1 d'entre eux doit encore bouger
             for (Aventurier aventurier : getAventuriers()) {
                 if (!aventurier.getCheminRestant().isEmpty()) {
                     atLeastOneMoveLeft = true;
@@ -266,7 +288,9 @@ public class CarteAuTresor {
         aventurier.advanceToPosition(targetX, targetY);
 
     }
+    //endregion
 
+    //region Utils
     /**
      * Renvoie le trésor qui se trouve à une certaine position
      *
@@ -342,6 +366,10 @@ public class CarteAuTresor {
         return Math.max(longest + 5, 2);
     }
 
+    /**
+     * Représente la carte sous forme de plateau.
+     * @return la String correspondant au plateau
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
@@ -354,6 +382,7 @@ public class CarteAuTresor {
         }
         return str.toString();
     }
+    //endregion
 
     // region Accessors
     public List<List<String>> getCarte() {
