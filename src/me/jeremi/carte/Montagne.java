@@ -1,7 +1,7 @@
 package me.jeremi.carte;
 
 /**
- * Représente une case montagne présent sur la carte.
+ * Représente une case montagne présente sur la carte.
  * @author Jeremi Friggit(@KorabFusian)
  */
 class Montagne {
@@ -10,8 +10,8 @@ class Montagne {
 
     /**
      * Constructeur de montagne
-     * @param x la coordonnée horizontale du trésor
-     * @param y la coordonnée verticale du trésor
+     * @param x la coordonnée horizontale de la montagne
+     * @param y la coordonnée verticale de la montagne
      */
     public Montagne(int x, int y) {
         this.x = x;
@@ -27,5 +27,5 @@ class Montagne {
         return x;
     }
 
-    //endregion
+
 }

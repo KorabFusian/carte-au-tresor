@@ -312,12 +312,44 @@ public class CarteAuTresor {
         return null;
     }
 
+    /**
+     * Renvoie la taille des cases pour écriture par toString.
+     * Si aucun trésor ni aventurier, c'est la taille minimum (2 pour avoir un espace)
+     * Sinon c'est le nom/chiffre le plus long + 5
+     * @return la taille des cases
+     */
+    private int getCaseSize() {
+        int longest = -5;
+
+        // On parcourt les trésors
+        for (Tresor tresor : getTresors()) {
+            // si un trésor a le plus de chiffres
+            if (String.valueOf(tresor.getTresor()).length() > longest)
+                longest = String.valueOf(tresor.getTresor()).length();
+        }
+
+        // On parcourt les aventuriers
+        for (Aventurier aventurier : getAventuriers()) {
+            // Si le nom d'un aventurier est le plus long
+            if (aventurier.getNom().length() > longest)
+                longest = aventurier.getNom().length();
+        }
+
+        // longest + 5 pour avoir la place pour  pour avoir la place d'écrire
+        // les caractères 'A/T', '(', ' ', ')', ' '
+        return Math.max(longest + 5, 2);
+    }
+
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (List<String> list : getCarte()) {
-            str.append(Arrays.toString(list.toArray())).append("\n");
+        String format = "%-" + getCaseSize() + "s";
+        for (List<String> line : getCarte()) {
+            for (String box : line) {
+                str.append(String.format(format, box));
+            }
+            str.append("\n");
         }
         return str.toString();
     }

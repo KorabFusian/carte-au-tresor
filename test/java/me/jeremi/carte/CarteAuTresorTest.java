@@ -22,10 +22,10 @@ class CarteAuTresorTest {
     // Vérifie aussi la bonne création de la carte. Pratique !
     void toStringShouldWork() {
         assertEquals("""
-                [-, -, -]
-                [-, -, -]
-                [-, -, -]
-                [-, -, -]
+                - - -\040
+                - - -\040
+                - - -\040
+                - - -\040
                 """, carte.toString());
     }
 
