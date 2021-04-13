@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
  * Représente un aventurier présent sur la carte.
  * @author Jeremi Friggit(@KorabFusian)
  */
-class Aventurier {
+public class Aventurier {
 
     private final String nom;
     private int x;

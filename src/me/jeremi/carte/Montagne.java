@@ -7,7 +7,7 @@ package me.jeremi.carte;
  * correspondant à une montagne.
  * @author Jeremi Friggit(@KorabFusian)
  */
-class Montagne {
+public class Montagne {
     private final int x;
     private final int y;
 

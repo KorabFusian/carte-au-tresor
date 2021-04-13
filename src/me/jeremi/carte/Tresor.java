@@ -4,7 +4,7 @@ package me.jeremi.carte;
  * Représente une case trésor présent sur la carte.
  * @author Jeremi Friggit(@KorabFusian)
  */
-class Tresor {
+public class Tresor {
     private int tresor;
     private final int x;
     private final int y;

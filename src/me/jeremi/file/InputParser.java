@@ -9,7 +9,7 @@ import java.util.Scanner;
  * InputParser permet de lire un fichier texte pour obtenir les informations d'une carte.
  */
 public class InputParser {
-    
+
     /**
      * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
      *
@@ -34,13 +34,13 @@ public class InputParser {
             }
             lineReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Erreur durant la lecture du fichier d'entrée.");
+            System.out.println("Fichier d'entrée introuvable.");
             e.printStackTrace();
         }
         return carteInput;
     }
 
-    public void parseLine(String line, CarteAuTresor carteInput) {
+    void parseLine(String line, CarteAuTresor carteInput) {
         try {
             switch (line.charAt(0)) {
                 case 'C' -> carteInput.createMap(line);
