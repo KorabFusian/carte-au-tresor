@@ -63,7 +63,7 @@ class CarteAuTresorTest {
         assertEquals("T (3)", carte.getCarte().get(3).get(1),
                 "Carte should display a T ({amount}) at position (2,1)");
 
-        // First treasure
+        // First Tresor should be added to list tresors
         assertEquals(0,carte.getTresors().get(0).getX(),
                 "The first treasure in the list should have x = 1");
         assertEquals(3,carte.getTresors().get(0).getY(),
@@ -71,7 +71,7 @@ class CarteAuTresorTest {
         assertEquals(2, carte.getTresors().get(0).getTresor(),
                 "The first treasure in the list should have 2 treasures");
 
-        // Second treasure
+        // Second Tresor should be added to list tresors
         assertEquals(1,carte.getTresors().get(1).getX(),
                 "The second treasure in the list should have x = 2");
         assertEquals(3,carte.getTresors().get(1).getY(),
@@ -96,6 +96,11 @@ class CarteAuTresorTest {
     @DisplayName("Adding an Aventurier should give it the right parameters")
     void addAventurierShouldBeRight() {
         carte.addAventurier("A-Lara-1-1-S-AAGGA");
+        // Carte display
+        assertEquals("A (Lara)", carte.getCarte().get(1).get(1),
+                "Carte should display an A ({name}) at position (1,1)");
+
+        // Aventurier should be added to list aventuriers
         assertEquals("Lara", carte.getAventuriers().get(0).getNom());
         assertEquals(1, carte.getAventuriers().get(0).getX());
         assertEquals(1, carte.getAventuriers().get(0).getY());
@@ -116,7 +121,43 @@ class CarteAuTresorTest {
     }
 
     @Test
-    void mouvementAventuriers() {
+    @DisplayName("Moving all Aventuriers should execute all turns right")
+    void mouvementAventuriersShouldWork() {
+        carte.addAventurier("A-Lara-0-1-E-AGA");
+        carte.addAventurier("A-Keanu-0-2-E-AADA");
+
+        carte.mouvementAventuriers();
+
+        // Carte display
+        assertEquals("A (Lara)", carte.getCarte().get(0).get(1),
+                "Carte should display an A (Lara) at position (1,0)");
+        assertEquals("A (Keanu)", carte.getCarte().get(3).get(2),
+                "Carte should display an A (Keanu) at position (2,3)");
+
+        // First Aventurier's position and orientation (1,0,N) should update correctly
+        assertEquals(1, carte.getAventuriers().get(0).getX());
+        assertEquals(0, carte.getAventuriers().get(0).getY());
+        assertEquals(Direction.NORD, carte.getAventuriers().get(0).getOrientation());
+
+        // Second Aventurier's position and orientation (2,3,S) should update correctly
+        assertEquals(2, carte.getAventuriers().get(1).getX());
+        assertEquals(3, carte.getAventuriers().get(1).getY());
+        assertEquals(Direction.SUD, carte.getAventuriers().get(1).getOrientation());
+    }
+
+    @Test
+    @DisplayName("Moving an Aventurier into a Montagne should not move them")
+    void mouvementAventuriersMontagneShouldStop() {
+        carte.addMontagne("M-1-2");
+        carte.addAventurier("A-Climber-1-1-S-A");
+
+        carte.mouvementAventuriers();
+
+        // Aventurier shouldn't have moved (1,1,S)
+        assertEquals(1, carte.getAventuriers().get(0).getX());
+        assertEquals(1, carte.getAventuriers().get(0).getY());
+        assertEquals(Direction.SUD, carte.getAventuriers().get(0).getOrientation());
+
     }
 
     @Test
