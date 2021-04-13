@@ -115,7 +115,6 @@ class Aventurier {
         case SUD -> setOrientation(Direction.OUEST);
         case EST -> setOrientation(Direction.SUD);
         case OUEST -> setOrientation(Direction.NORD);
-        default -> throw new IllegalStateException("Unexpected orientation: " + getOrientation());
         }
         popCheminRestant();
     }

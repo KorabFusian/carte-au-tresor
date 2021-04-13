@@ -17,6 +17,7 @@ class CarteAuTresorTest {
         carte.createMap("C-3-4");
     }
 
+    //region Creation and filling Carte tests
     @Test
     @DisplayName("Creating two maps should throw an IllegalArgumentException")
     void createMapTwiceShouldThrowException() {
@@ -121,6 +122,44 @@ class CarteAuTresorTest {
     }
 
     @Test
+    @DisplayName("Adding an item on an empty map should throw  an IllegalArgumentException")
+    void addOnNoCarte() {
+        CarteAuTresor empty = new CarteAuTresor();
+
+        // Shouldn't be able to add any element
+        assertThrows(IllegalArgumentException.class, () -> empty.addAventurier("A-Perdu-0-0-S-GAGA"));
+        assertThrows(IllegalArgumentException.class, () -> empty.addTresor("T-0-0-1"));
+        assertThrows(IllegalArgumentException.class, () -> empty.addMontagne("M-0-0"));
+    }
+
+    @Test
+    @DisplayName("Adding an item over another should throw an IllegalArgumentException")
+    void addOverSomethingShouldThrowException() {
+
+        // Real items
+        carte.addAventurier("A-Ronflex-0-0-S-GDGDGD");
+        carte.addTresor("T-0-1-1");
+        carte.addMontagne("M-0-2");
+
+        // Adding an Aventurier over these shouldn't work
+        assertThrows(IllegalArgumentException.class, () -> carte.addAventurier("A-Exclu-0-0-S-AAGGA"));
+        assertThrows(IllegalArgumentException.class, () -> carte.addAventurier("A-Exclu-0-1-S-AAGGA"));
+        assertThrows(IllegalArgumentException.class, () -> carte.addAventurier("A-Exclu-0-2-S-AAGGA"));
+
+        // Adding a Tresor over them shouldn't work
+        assertThrows(IllegalArgumentException.class, () -> carte.addTresor("T-0-0-1"));
+        assertThrows(IllegalArgumentException.class, () -> carte.addTresor("T-0-1-1"));
+        assertThrows(IllegalArgumentException.class, () -> carte.addTresor("T-0-2-1"));
+
+        // Adding a Montagne over them shouldn't work
+        assertThrows(IllegalArgumentException.class, () -> carte.addMontagne("M-0-0"));
+        assertThrows(IllegalArgumentException.class, () -> carte.addMontagne("M-0-1"));
+        assertThrows(IllegalArgumentException.class, () -> carte.addMontagne("M-0-2"));
+    }
+    //endregion
+
+    //region Movement tests
+    @Test
     @DisplayName("Moving all Aventuriers should execute all turns right")
     void mouvementAventuriersShouldWork() {
         carte.addAventurier("A-Lara-0-1-E-AGA");
@@ -146,7 +185,7 @@ class CarteAuTresorTest {
     }
 
     @Test
-    @DisplayName("Moving an Aventurier into a Montagne should not move them")
+    @DisplayName("Moving an Aventurier into a Montagne should stop them")
     void mouvementAventuriersMontagneShouldStop() {
         carte.addMontagne("M-1-2");
         carte.addAventurier("A-Climber-1-1-S-A");
@@ -160,6 +199,42 @@ class CarteAuTresorTest {
 
     }
 
+    @Test
+    @DisplayName("Moving an Aventurier out of bounds should stop them")
+    void mouvementAventuriersBoundaryShouldStop() {
+        carte.addAventurier("A-Climber-2-3-S-AGA");
+
+        carte.mouvementAventuriers();
+
+        // Aventurier should only have turned left (1,1,E)
+        assertEquals(2, carte.getAventuriers().get(0).getX());
+        assertEquals(3, carte.getAventuriers().get(0).getY());
+        assertEquals(Direction.EST, carte.getAventuriers().get(0).getOrientation());
+
+    }
+
+    @Test
+    @DisplayName("A conflict in the movement of Aventuriers should prioritize the first one created")
+    void mouvementAventuriersConflictShouldPrioritizeFirst() {
+        carte.addAventurier("A-Usain-1-1-S-A");
+        carte.addAventurier("A-Ramoloss-0-2-E-A");
+
+        carte.mouvementAventuriers();
+
+        // Usain should have moved (1,2,S)
+        assertEquals(1, carte.getAventuriers().get(0).getX());
+        assertEquals(2, carte.getAventuriers().get(0).getY());
+        assertEquals(Direction.SUD, carte.getAventuriers().get(0).getOrientation());
+
+        // Ramoloss should not have moved (0,2,E)
+        assertEquals(0, carte.getAventuriers().get(1).getX());
+        assertEquals(2, carte.getAventuriers().get(1).getY());
+        assertEquals(Direction.EST, carte.getAventuriers().get(1).getOrientation());
+
+    }
+    //endregion
+
+    //region Util tests
     @Test
     @DisplayName("toString override should return the right result")
         // Vérifie aussi la bonne création de la carte. Pratique !
@@ -198,4 +273,5 @@ class CarteAuTresorTest {
 
         carte.mouvementAventuriers();
     }
+    //endregion
 }
