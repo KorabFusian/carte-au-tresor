@@ -9,6 +9,8 @@ class CarteAuTresorTest {
 
     @BeforeEach
     void setUp() {
+        CarteAuTresor carte = new CarteAuTresor();
+        carte.createMap("C-3-4");
     }
 
     @Test

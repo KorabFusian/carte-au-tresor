@@ -20,14 +20,7 @@ public class CarteAuTresor {
     private List<Tresor> tresors; // liste des trésors (pour ne pas se perdre)
 
 
-    /**
-     * Imprime l'état actuel de la carte
-     */
-    public void print() {
-        for (List<String> list : getCarte()) {
-            System.out.println(Arrays.toString(list.toArray()));
-        }
-    }
+
 
     /**
      * Initialise une carte vide avec les bonnes dimensions
@@ -242,6 +235,16 @@ public class CarteAuTresor {
         // On finit par modifier les stats de l'aventurier
         aventurier.advanceToPosition(targetX, targetY);
 
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (List<String> list : getCarte()) {
+            str.append(Arrays.toString(list.toArray())).append("\n");
+        }
+        return str.toString();
     }
 
     //region Accessors

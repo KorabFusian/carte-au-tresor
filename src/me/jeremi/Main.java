@@ -9,7 +9,8 @@ public class Main {
 
     	InputParser inputParser = new InputParser();
 	    CarteAuTresor carte = inputParser.parseFile("exemple.txt");
+		System.out.println(carte);
 	    carte.mouvementAventuriers();
-	    carte.print();
+	    System.out.println(carte);
     }
 }
