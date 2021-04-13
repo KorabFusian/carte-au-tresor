@@ -10,14 +10,14 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * La classe de test pour InputParser.
+ * Classe de test pour la classe InputParser.
  * @author Jeremi Friggit (@KorabFusian)
  * @see InputParser
  */
 class InputParserTest {
 
     InputParser inputParser;
-    String path = "test/resources/";
+    String path = "test/resources/input/";
 
     @BeforeEach
     void setUp() {
