@@ -160,7 +160,7 @@ class CarteAuTresorTest {
 
     //region Movement tests
     @Test
-    @DisplayName("Moving all Aventuriers should execute all turns right")
+    @DisplayName("Moving all Aventuriers should execute all turns correctly")
     void mouvementAventuriersShouldWork() {
         carte.addAventurier("A-Lara-0-1-E-AGA");
         carte.addAventurier("A-Keanu-0-2-E-AADA");
@@ -232,18 +232,26 @@ class CarteAuTresorTest {
         assertEquals(Direction.EST, carte.getAventuriers().get(1).getOrientation());
 
     }
+
+    @Test
+    @DisplayName("Moving with no Aventuriers should do nothing")
+    void mouvementNothingShouldDoNothing() {
+        CarteAuTresor secondCarte = new CarteAuTresor();
+        secondCarte.createMap("C-3-4");
+        carte.mouvementAventuriers();
+        assertEquals(secondCarte.toString(),carte.toString());
+    }
     //endregion
 
     //region Util tests
     @Test
-    @DisplayName("toString override should return the right result")
-        // Vérifie aussi la bonne création de la carte. Pratique !
+    @DisplayName("toString should return the correct result")
     void toStringShouldWork() {
         assertEquals("""
-                - - -\040
-                - - -\040
-                - - -\040
-                - - -\040
+                - - -\s
+                - - -\s
+                - - -\s
+                - - -\s
                 """, carte.toString());
 
         carte.addMontagne("M-1-0");
@@ -253,10 +261,10 @@ class CarteAuTresorTest {
         carte.addAventurier("A-Lara-1-1-S-AADADAGGA");
 
         assertEquals("""
-                -        M        -       \040
-                -        A (Lara) M       \040
-                -        -        -       \040
-                T (2)    T (3)    -       \040
+                -        M        -       \s
+                -        A (Lara) M       \s
+                -        -        -       \s
+                T (2)    T (3)    -       \s
                 """, carte.toString(),
                 "toString should update the space between each box when adding a long name");
 
@@ -264,14 +272,22 @@ class CarteAuTresorTest {
         carte.addAventurier("A-Indiana-1-2-S-AADADA");
 
         assertEquals("""
-                -           M           -          \040
-                -           A (Lara)    M          \040
-                -           A (Indiana) -          \040
-                T (2)       T (3)       -          \040
+                -           M           -          \s
+                -           A (Lara)    M          \s
+                -           A (Indiana) -          \s
+                T (2)       T (3)       -          \s
                 """, carte.toString(),
                 "toString should update the space between each box when adding a long name");
 
         carte.mouvementAventuriers();
+
+        assertEquals("""
+               -           M           -          \s
+               A (Lara)    -           M          \s
+               A (Indiana) -           -          \s
+               T (1)       T (2)       -          \s
+               """, carte.toString(),
+                "toString should have the right elements in the right place after moving Aventuriers");
     }
     //endregion
 }

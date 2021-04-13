@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InputParserTest {
@@ -56,7 +58,6 @@ class InputParserTest {
                 "Tresor 2's toString should be right");
         assertEquals("A - Lara - 1 - 1 - S - 0", carte.getAventuriers().get(0).toString(),
                 "Aventurier's toString should be right");
-
     }
 
     @Test
@@ -79,6 +80,17 @@ class InputParserTest {
                 "Tresor 2's toString should be right");
         assertEquals("A - Lara - 1 - 1 - S - 0", carte.getAventuriers().get(0).toString(),
                 "Aventurier's toString should be right");
+    }
 
+    @Test
+    @DisplayName("Parsing a file with nothing or only comments should give a newly initialized, empty CarteAuTresor")
+    void parseCommentFileShouldReturnEmpty() {
+        CarteAuTresor carte = inputParser.parseFile(path + "comments-only.txt");
+
+        // All lists should be empty
+        assertEquals(Collections.EMPTY_LIST, carte.getCarte());
+        assertEquals(Collections.EMPTY_LIST, carte.getMontagnes());
+        assertEquals(Collections.EMPTY_LIST, carte.getTresors());
+        assertEquals(Collections.EMPTY_LIST, carte.getAventuriers());
     }
 }
