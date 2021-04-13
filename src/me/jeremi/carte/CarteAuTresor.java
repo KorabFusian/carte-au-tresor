@@ -6,6 +6,10 @@ import java.util.*;
  * Gère  la carte au trésor et ses règles
  * 3 gros éléments : la carte en texte, la liste des aventuriers, la liste des trésors
  * (ce sont les éléments amenés à changer).
+ * Cette classe représentant la gestion de la carte et pas la carte elle-même, est construite sans arguments.
+ * Pour créer la carte, il faut appeler la méthode createMap avec la ligne du fichier d'input qui commence par C.
+ * Un seul objet CarteAuTresor gère une seule carte : si on veut en créer plusieurs, il faut créer un
+ * objet CarteAuTresor par carte à créer.
  * @see Aventurier
  * @see Tresor
  */
@@ -27,7 +31,7 @@ public class CarteAuTresor {
 
     /**
      * Initialise une carte vide avec les bonnes dimensions
-     * @param params la ligne C venant directement du fichier source (sans les espaces)
+     * @param params la ligne commençant par C venant directement du fichier source (sans les espaces)
      * @throws IllegalArgumentException exception si on a déjà créé la carte
      */
     public void createMap(String params) throws IllegalArgumentException {
@@ -48,7 +52,7 @@ public class CarteAuTresor {
 
     /**
      * Ajoute une montagne à la carte
-     * @param params la ligne M venant directement du fichier source (sans les espaces)
+     * @param params la ligne commençant par M venant directement du fichier source (sans les espaces)
      * @throws IllegalArgumentException exception si on sort des bords de la carte ou que la case est déjà occupée
      */
     public void addMontagne(String params) throws IllegalArgumentException {
@@ -66,7 +70,7 @@ public class CarteAuTresor {
 
     /**
      * Ajoute un trésor à la carte et crée un objet trésor dans la liste
-     * @param params la ligne T venant directement du fichier source (sans les espaces)
+     * @param params la ligne commençant par T venant directement du fichier source (sans les espaces)
      * @throws IllegalArgumentException exception si on sort des bords de la carte, que le trésor est vide/négatif
      * ou que la case est déjà occupée
      */
@@ -92,7 +96,7 @@ public class CarteAuTresor {
 
     /**
      * Ajoute un aventurier à la carte et crée un objet aventurier dans la liste
-     * @param params la ligne A venant directement du fichier source (sans les espaces)
+     * @param params la ligne commençant par A venant directement du fichier source (sans les espaces)
      * @throws IllegalArgumentException si on sort des bords de la carte ou que l'orientation n'est pas bonne
      */
     public void addAventurier(String params) throws IllegalArgumentException {
