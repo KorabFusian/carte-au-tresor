@@ -3,7 +3,7 @@ package me.jeremi.carte;
 import java.util.*;
 
 /**
- * Représente la totalité de la carte au trésor
+ * Gère  la carte au trésor et ses règles
  * 3 gros éléments : la carte en texte, la liste des aventuriers, la liste des trésors
  * (ce sont les éléments amenés à changer).
  * @see Aventurier
@@ -133,12 +133,7 @@ public class CarteAuTresor {
 
             // on effectue 1 tour pour chaque aventurier
             for (Aventurier aventurier : getAventuriers()) {
-                try {
-                    tour(aventurier);
-                } catch (IllegalStateException e) {
-                    System.out.println("Erreur durant le mouvement des aventuriers.");
-                    e.printStackTrace();
-                }
+                tour(aventurier);
             }
 
             // vérification qu'au moins 1 d'entre eux doit encore bouger
@@ -162,6 +157,10 @@ public class CarteAuTresor {
             return;
         }
 
+
+        /* Le chemin restant des aventuriers contient UNIQUEMENT les caractères A/G/D
+            (voir le setter), donc pas besoin de gérer autre chose
+         */
         switch (aventurier.getCheminRestant().charAt(0)) {
 
             case 'G' -> aventurier.tournerAGauche();
