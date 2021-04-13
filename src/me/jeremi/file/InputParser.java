@@ -1,31 +1,15 @@
-package me.jeremi.file;/*
- * FileParser
- * Version 1.0 (2021-04-11)
- *
- * Ouvre un fichier .txt et le transforme en map utilisable
- *
- *
- * Created by Jeremi Friggit (KorabFusian)
- */
-
+package me.jeremi.file;
 import me.jeremi.carte.CarteAuTresor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * InputParser permet de lire un fichier texte pour obtenir les informations d'une carte.
+ */
 public class InputParser {
-
-    public CarteAuTresor getCarteInput() {
-        return carteInput;
-    }
-
-    private final CarteAuTresor carteInput;
-
-    public InputParser() {
-        carteInput = new CarteAuTresor();
-    }
-
+    
     /**
      * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
      *
@@ -33,6 +17,8 @@ public class InputParser {
      * @return carteInput la carte avant tout mouvement d'aventurier
      */
     public CarteAuTresor parseFile(String filename) {
+        // On crée une instance de carte qui aura tout ce qui est spécifié dans le fichier
+        CarteAuTresor carteInput  = new CarteAuTresor();
         try {
             File txtInput = new File(filename);
             Scanner lineReader = new Scanner(txtInput);
@@ -43,7 +29,7 @@ public class InputParser {
                 // et pour pouvoir parse chaque paramètre sans espace
                 line = line.replaceAll("\\s", "");
                 if (line.charAt(0) != '#') {   // skip comments
-                    parseLine(line, getCarteInput());
+                    parseLine(line, carteInput);
                 }
             }
             lineReader.close();
@@ -51,7 +37,7 @@ public class InputParser {
             System.out.println("Erreur durant la lecture du fichier d'entrée.");
             e.printStackTrace();
         }
-        return getCarteInput();
+        return carteInput;
     }
 
     public void parseLine(String line, CarteAuTresor carteInput) {
@@ -66,6 +52,4 @@ public class InputParser {
             e.printStackTrace();
         }
     }
-
-
 }

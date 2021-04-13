@@ -15,7 +15,7 @@ class Tresor {
      * @param x la coordonnée horizontale du trésor
      * @param y la coordonnée verticale du trésor
      */
-    public Tresor(int tresor, int x, int y) {
+    public Tresor(int x, int y, int tresor) {
         this.tresor = Math.max(tresor, 0);
         this.x = x;
         this.y = y;
@@ -27,6 +27,12 @@ class Tresor {
     public void decrement() {
             setTresor(getTresor() - 1);
     }
+
+    @Override
+    public String toString() {
+        return "T - " + getX() + " - " + getY() + " - " + getTresor();
+    }
+
     //region Accessors
 
     public int getTresor() {

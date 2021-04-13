@@ -2,6 +2,9 @@ package me.jeremi.carte;
 
 /**
  * Représente une case montagne présente sur la carte.
+ * Cette classe est la moins complexe des classes présentes sur la carte
+ * Elle existe surtout par cohérence avec le reste de la carte, et pour générer la string
+ * correspondant à une montagne.
  * @author Jeremi Friggit(@KorabFusian)
  */
 class Montagne {
@@ -18,14 +21,16 @@ class Montagne {
         this.y = y;
     }
 
-    public int getY() {
-        return y;
+    public String toString() {
+        return "M - " + getX() + " - " + getY();
     }
-
 
     public int getX() {
         return x;
     }
 
+    public int getY() {
+        return y;
+    }
 
 }

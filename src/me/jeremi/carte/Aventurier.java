@@ -130,7 +130,6 @@ class Aventurier {
     @Override
     public String toString() {
         return "A - " + getNom() + " - " + getX() + " - " + getY() + " - " + getOrientationChar() + " - " + getTresor();
-
     }
 
 

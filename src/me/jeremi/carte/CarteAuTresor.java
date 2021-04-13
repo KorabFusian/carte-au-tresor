@@ -117,7 +117,7 @@ public class CarteAuTresor {
             throw new IllegalArgumentException("Trésor ne peut pas être 0 ou négatif");
         }
 
-        getTresors().add(new Tresor(tresor, x, y));
+        getTresors().add(new Tresor(x, y, tresor));
         getCarte().get(y).set(x, "T (" + tresor + ")");
     }
 
