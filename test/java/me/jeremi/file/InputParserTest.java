@@ -9,6 +9,11 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * La classe de test pour InputParser.
+ * @author Jeremi Friggit (@KorabFusian)
+ * @see InputParser
+ */
 class InputParserTest {
 
     InputParser inputParser;

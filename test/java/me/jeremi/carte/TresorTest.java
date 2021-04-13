@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Classe de test pour la classe Tresor.
+ * @author Jeremi Friggit (@KorabFusian)
+ * @see Tresor
+ */
 class TresorTest {
 
     @Test

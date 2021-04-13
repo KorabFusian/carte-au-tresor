@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * InputParser permet de lire un fichier texte pour obtenir les informations d'une carte.
+ * Permet de lire un fichier texte pour obtenir les informations d'une carte.
+ * @author Jeremi Friggit (@KorabFusian)
  */
 public class InputParser {
 

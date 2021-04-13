@@ -3,18 +3,12 @@ package me.jeremi.carte;
 import java.util.*;
 
 /**
- * Gère  la carte au trésor et ses règles
- * 4 propriétés :
- * - représentation de la carte en ArrayList 2D de String
- * - liste des aventuriers
- * - liste des trésors
- * - liste des montagnes
- * (ce sont les éléments amenés à changer).
- * Cette classe représentant la gestion de la carte et pas la carte elle-même, est construite sans arguments.
- * Pour créer la carte, il faut appeler la méthode createMap avec la ligne du fichier d'input qui commence par C.
+ * Gère la carte au trésor et ses règles.
+ * Pour créer la carte elle-même, il faut appeler la méthode createMap avec la ligne du fichier d'input qui commence par C.
  * Un seul objet CarteAuTresor gère une seule carte : si on veut en créer plusieurs, il faut créer un
  * objet CarteAuTresor par carte à créer.
  *
+ * @author Jeremi Friggit(@KorabFusian)
  * @see Montagne
  * @see Tresor
  * @see Aventurier

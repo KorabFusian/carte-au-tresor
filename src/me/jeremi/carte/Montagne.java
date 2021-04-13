@@ -2,12 +2,14 @@ package me.jeremi.carte;
 
 /**
  * Représente une case montagne présente sur la carte.
- * Cette classe est la moins complexe des classes présentes sur la carte
- * Elle existe surtout par cohérence avec le reste de la carte, et pour générer la string
- * correspondant à une montagne.
  * @author Jeremi Friggit(@KorabFusian)
  */
 public class Montagne {
+    /*
+     * Cette classe est la moins complexe des classes présentes sur la carte.
+     * Elle existe surtout par cohérence avec le reste de la carte, et pour générer la string
+     * correspondant à une montagne.
+     */
     private final int x;
     private final int y;
 

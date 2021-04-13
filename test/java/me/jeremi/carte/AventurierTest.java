@@ -4,6 +4,11 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Classe de test pour la classe Aventurier.
+ * @author Jeremi Friggit (@KorabFusian)
+ * @see Aventurier
+ */
 class AventurierTest {
 
     Aventurier aventurier;
@@ -117,8 +122,8 @@ class AventurierTest {
     }
 
     @Test
-    @DisplayName("Turning should set a new position")
-    void turningShouldSetPosition() {
+    @DisplayName("Turning should pop chemin restant")
+    void turningShouldPopCheminRestant() {
         aventurier.tournerAGauche();
         assertEquals("AGADA", aventurier.getCheminRestant());
         aventurier.tournerADroite();
