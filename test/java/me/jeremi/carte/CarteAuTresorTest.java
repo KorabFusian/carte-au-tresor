@@ -64,17 +64,17 @@ class CarteAuTresorTest {
                 "Carte should display a T ({amount}) at position (2,1)");
 
         // First treasure
-        assertEquals(1,carte.getMontagnes().get(0).getX(),
+        assertEquals(0,carte.getTresors().get(0).getX(),
                 "The first treasure in the list should have x = 1");
-        assertEquals(0,carte.getMontagnes().get(0).getY(),
+        assertEquals(3,carte.getTresors().get(0).getY(),
                 "The first treasure in the list should have y = 0");
         assertEquals(2, carte.getTresors().get(0).getTresor(),
                 "The first treasure in the list should have 2 treasures");
 
         // Second treasure
-        assertEquals(2,carte.getMontagnes().get(1).getX(),
+        assertEquals(1,carte.getTresors().get(1).getX(),
                 "The second treasure in the list should have x = 2");
-        assertEquals(1,carte.getMontagnes().get(1).getY(),
+        assertEquals(3,carte.getTresors().get(1).getY(),
                 "The second treasure in the list should have y = 1");
         assertEquals(3, carte.getTresors().get(1).getTresor(),
                 "The second treasure in the list should have 3 treasures");
@@ -97,9 +97,9 @@ class CarteAuTresorTest {
     void addAventurierShouldBeRight() {
         carte.addAventurier("A-Lara-1-1-S-AAGGA");
         assertEquals("Lara", carte.getAventuriers().get(0).getNom());
-        assertEquals("Lara", carte.getAventuriers().get(0).getNom());
-        assertEquals("Lara", carte.getAventuriers().get(0).getNom());
-        assertEquals("Lara", carte.getAventuriers().get(0).getNom());
+        assertEquals(1, carte.getAventuriers().get(0).getX());
+        assertEquals(1, carte.getAventuriers().get(0).getY());
+        assertEquals(Direction.SUD, carte.getAventuriers().get(0).getOrientation());
         assertEquals("AAGGA", carte.getAventuriers().get(0).getCheminRestant());
     }
 
@@ -107,12 +107,12 @@ class CarteAuTresorTest {
     @DisplayName("Adding an Aventurier with illegal parameters should throw an IllegalArgumentException")
     void addIllegalAventurierShouldThrowException() {
         // Out of bounds
-        assertThrows(IllegalArgumentException.class, () -> carte.addTresor("T-8-7-2"),
-                "Adding a Tresor out of bounds should throw an IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> carte.addAventurier("A-Lara-9-3-S-AAGGA"),
+                "Adding an Aventurier out of bounds should throw an IllegalArgumentException");
 
-        // Illegal amount of treasure
-        assertThrows(IllegalArgumentException.class, () -> carte.addTresor("T-0-3-0"),
-                "Adding a Tresor with no amount of treasure should throw an IllegalArgumentException");
+        // Unsupported orientation
+        assertThrows(IllegalArgumentException.class, () -> carte.addAventurier("A-Lara-1-3-J-AAGGA"),
+                "Adding an Aventurier with an unsupported orientation should throw an IllegalArgumentException");
     }
 
     @Test

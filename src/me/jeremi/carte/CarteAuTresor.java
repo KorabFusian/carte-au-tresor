@@ -15,8 +15,9 @@ import java.util.*;
  * Un seul objet CarteAuTresor gère une seule carte : si on veut en créer plusieurs, il faut créer un
  * objet CarteAuTresor par carte à créer.
  *
- * @see Aventurier
+ * @see Montagne
  * @see Tresor
+ * @see Aventurier
  */
 public class CarteAuTresor {
 
