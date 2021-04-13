@@ -14,7 +14,7 @@ public class InputParser {
     /**
      * Traverse le fichier d'entrée pour l'interpréter ligne par ligne
      *
-     * @param pathname le nom du fichier d'entrée
+     * @param pathname le chemin du fichier d'entrée
      * @return carteInput la carte avant tout mouvement d'aventurier
      */
     public CarteAuTresor parseFile(String pathname) {

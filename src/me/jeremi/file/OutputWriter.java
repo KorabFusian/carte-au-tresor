@@ -5,17 +5,26 @@ import me.jeremi.carte.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
+/**
+ * Permet d'écrire la description d'une carte dans un fichier texte.
+ * @author Jeremi Friggit (@KorabFusian)
+ * @see CarteAuTresor
+ */
 public class OutputWriter {
 
+    /**
+     * Ecrit la description d'une carte dans un fichier.
+     * @param carte la CarteAuTresor à écrire
+     * @param pathname le chemin vers le fichier
+     */
     public void writeCarteToFile(CarteAuTresor carte, String pathname) {
         if (!pathname.endsWith(".txt")) pathname += ".txt";
         try {
             File outputTxt = new File(pathname);
             boolean created = outputTxt.createNewFile();
             FileWriter writer = new FileWriter(pathname);
-            writer.write(getCarteDescription(carte));
+            writer.write(describeCarteAuTresor(carte));
             writer.close();
         } catch (IOException e) {
             System.out.println("Erreur en écrivant le fichier de sortie.");
@@ -23,7 +32,12 @@ public class OutputWriter {
         }
     }
 
-    String getCarteDescription(CarteAuTresor carte) {
+    /**
+     * Génère la description d'une CarteAuTresor dans le bon format.
+     * @param carte la CarteAuTresor à décrire
+     * @return la description de la carte en tant que String.
+     */
+    String describeCarteAuTresor(CarteAuTresor carte) {
         StringBuilder str = new StringBuilder(
                 "C - " + carte.getCarte().get(0).size() + " - " + carte.getCarte().size());
 
