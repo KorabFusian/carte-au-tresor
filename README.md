@@ -1,5 +1,5 @@
 # carte-au-tresor
-## Exercice pratique pour CARBON IT.
+### Exercice pratique pour CARBON IT.
 
 ## Contexte
 
