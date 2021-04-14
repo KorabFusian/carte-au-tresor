@@ -17,17 +17,17 @@ public class Main {
 
         InputParser inputParser = new InputParser();
         OutputWriter outputWriter = new OutputWriter();
-        CarteAuTresor carte = inputParser.parseFile(getInputFilePath());
-        String outPath = getOutputFilePath();
+        String inPath = getInputFilePath();
+        CarteAuTresor carte = inputParser.parseFile(inPath);
         consoleCarte(carte);
         carte.mouvementAventuriers();
         consoleCarte(carte);
-        outputWriter.writeCarteToFile(carte, outPath);
+        outputWriter.writeCarteToFile(carte, constructOutputPath(inPath));
         messageForOutputFile();
 
     }
 
-    static String getInputFilePath() {
+    private static String getInputFilePath() {
         System.out.println("""
                 /////////////////////////////////////////////////////////////////////////////////////
                 //              Veuillez renseigner le chemin du fichier de lecture.               //
@@ -37,17 +37,21 @@ public class Main {
         return sc.nextLine();
     }
 
-    static String getOutputFilePath() {
-        System.out.println("""
-                ////////////////////////////////////////////////////////////////////////////////////
-                //              Veuillez renseigner le chemin du fichier d'écriture.              //
-                ////////////////////////////////////////////////////////////////////////////////////
-                """);
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
+    /**
+     * Construit le chemin du fichier de sortie en fonction de l'entrée.
+     * Les 2  fichiers sont donc toujours dans le même dossier et
+     * le chemin d'output est simplement le chemin d'input + " - RESULTAT".
+     * @param inPath le chemin d'entrée
+     * @return le chemin de sortie.
+     */
+    private static String constructOutputPath(String inPath) {
+        // On enlève l'extension au cas où
+        String outPath = inPath.replaceAll(".txt", "");
+        outPath += " - RESULTAT.txt";
+        return outPath;
     }
 
-    static void consoleCarte(CarteAuTresor carte) {
+    private static void consoleCarte(CarteAuTresor carte) {
         System.out.print("""
 
                 =====================================================================================
@@ -56,7 +60,7 @@ public class Main {
                 """ + carte.toString());
     }
 
-    static void messageForOutputFile() {
+    private static void messageForOutputFile() {
         System.out.print("""
                 ----------------------------------------------
                 Votre fichier est prêt, vous pouvez l'ouvrir !
